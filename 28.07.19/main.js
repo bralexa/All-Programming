@@ -99,11 +99,11 @@ var Rectangle = /** @class */ (function (_super) {
     Rectangle.prototype.draw = function () {
         var _draw = '';
         for (var i = 0; i < this.length; i++) {
-            for (var j = 0; j < this.length; j++) {
+            for (var j = 0; j < this.height; j++) {
                 if (i == 0 || i == this.length - 1) {
                     _draw += '*';
                 }
-                else if (j == 0 || j == this.length - 1) {
+                else if (j == 0 || j == this.height - 1) {
                     _draw += '*';
                 }
                 else {
