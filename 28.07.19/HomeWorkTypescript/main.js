@@ -14,14 +14,13 @@ var __extends = (this && this.__extends) || (function () {
 var Question = /** @class */ (function () {
     function Question(qText) {
         this.qText = qText;
+        this.qText = qText;
     }
     Question.prototype.toString = function () {
         return "The question is \"" + this.qText + "\"";
     };
     Question.prototype.set = function (qText) {
-    };
-    Question.prototype.getCorrectAnswer = function (correctanswer) {
-        return correctanswer;
+        this.qText = qText;
     };
     Question.prototype.addCorrectAnswer = function (correctanswer) {
         return correctanswer;
@@ -72,7 +71,7 @@ var MultipleChoiceQuestion = /** @class */ (function (_super) {
     MultipleChoiceQuestion.prototype.addAnswer = function (answer) {
         if (this.answers.length < 6) {
             this.answers[this.answers.length] = answer;
-            return '';
+            return this.answers;
         }
         else {
             return;
@@ -83,24 +82,34 @@ var MultipleChoiceQuestion = /** @class */ (function (_super) {
     };
     return MultipleChoiceQuestion;
 }(Question));
-var question2 = new MultipleChoiceQuestion("Where is the sun rise?", "East", 4, 0);
-question2.print();
-console.log(question2.getCorrectAnswer());
-question2.addCorrectAnswer("West");
-question2.print();
-console.log(question2.getCorrectAnswer());
-question2.addAnswer("North");
-question2.print();
-console.log(question2.getCorrectAnswer());
-question2.addCorrectAnswer("south");
-question2.print();
-console.log(question2.getCorrectAnswer());
-question2.addCorrectAnswer("West");
-question2.print();
-console.log(question2.getCorrectAnswer());
-question2.addCorrectAnswer("North");
-question2.print();
-console.log(question2.getCorrectAnswer());
-question2.addCorrectAnswer("south");
-question2.print();
-console.log(question2.getCorrectAnswer());
+var QuestionsCatalog = /** @class */ (function () {
+    function QuestionsCatalog() {
+        this.questions = new Array(20);
+        this.short = 1;
+        this.multiple = 2;
+        this.both = 3;
+    }
+    QuestionsCatalog.prototype.addQuestion = function (question) {
+        for (var i = 0; i < 20; i++) {
+            if (this.questions[i]) {
+            }
+            else {
+                this.questions[i] = question;
+                return;
+            }
+        }
+    };
+    return QuestionsCatalog;
+}());
+var cat = new QuestionsCatalog();
+var q1 = new MultipleChoiceQuestion("bubu", "nunu", 1, 0);
+cat.addQuestion(q1);
+var q2 = new MultipleChoiceQuestion("kuku4", "aku4", 6, 0);
+q2.addAnswer("aku44");
+q2.addAnswer("aku444");
+cat.addQuestion(q2);
+console.log(cat.questions);
+console.log(cat.questions[1].getCorrectAnswer());
+console.log(cat.questions[0].getCorrectAnswer());
+cat.questions[1].print();
+cat.questions[0].print();

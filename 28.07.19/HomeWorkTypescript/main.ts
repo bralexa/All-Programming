@@ -1,16 +1,15 @@
 class Question {
 
     constructor(public qText: string) {
+        this.qText = qText;
     }
     public toString() {
         return `The question is "` + this.qText + `"`;
     }
     set(qText: string) {
-
+        this.qText = qText;
     }
-    public getCorrectAnswer(correctanswer: string) {
-        return correctanswer;
-    }
+    
     public addCorrectAnswer(correctanswer: string) {
         return correctanswer;
     }
@@ -34,13 +33,11 @@ class ShortAnswerQuestion extends Question {
     }
 }
 
-
-
 class MultipleChoiceQuestion extends Question {
-    private answers:Array<String>;
-    private numberOfAnswers: number;
-    private correctAnswerIndex: number;
-    constructor(qText: string, answer: string, numberOfAnswers: number, correctAnswerIndex: number) {
+    answers:Array<String>;
+    numberOfAnswers: number;
+    correctAnswerIndex: number;
+    constructor(qText: string, answer:string, numberOfAnswers: number, correctAnswerIndex: number) {
         super(qText);
         this.answers = new Array();
         this.answers[0] = answer;
@@ -55,7 +52,7 @@ class MultipleChoiceQuestion extends Question {
         }
     }
 
-    addCorrectAnswer(answer: string) {
+    public addCorrectAnswer(answer: string) {
         if (this.answers.length < 6){
             this.correctAnswerIndex = this.answers.length;
             this.answers[this.answers.length]= answer;
@@ -66,40 +63,55 @@ class MultipleChoiceQuestion extends Question {
 
     }
 
-    addAnswer(answer: string) {
+    public addAnswer(answer:String) {
         if (this.answers.length < 6){
             this.answers[this.answers.length]= answer;
-            return'';     
+            return this.answers;     
         }else{
             return;
         }
 
     }
     
-    getCorrectAnswer() {
+    public getCorrectAnswer() {
         return `The correct answer is "` + this.answers[this.correctAnswerIndex] + `"`;
     }
 }
-var question2 = new MultipleChoiceQuestion("Where is the sun rise?", "East", 4, 0);
-question2.print();
-console.log(question2.getCorrectAnswer());
-question2.addCorrectAnswer("West");
-question2.print();
-console.log(question2.getCorrectAnswer());
-question2.addAnswer("North");
-question2.print();
-console.log(question2.getCorrectAnswer());
-question2.addCorrectAnswer("south");
-question2.print();
-console.log(question2.getCorrectAnswer());question2.addCorrectAnswer("West");
-question2.print();
-console.log(question2.getCorrectAnswer());
-question2.addCorrectAnswer("North");
-question2.print();
-console.log(question2.getCorrectAnswer());
-question2.addCorrectAnswer("south");
-question2.print();
-console.log(question2.getCorrectAnswer());
+
+class QuestionsCatalog {
+    questions: Array<MultipleChoiceQuestion> = new Array(20);
+    counter: number;
+    private short = 1;
+    private multiple = 2;
+    private both = 3;
+    constructor(){
+    }
+
+    addQuestion(question){
+        for (let i=0; i<20; i++){
+            if (this.questions[i]){
+            }
+            else{
+                this.questions[i] = question;
+                return;
+            }        
+        }
+    }
+    
+}
+var cat = new QuestionsCatalog();
+var q1 = new MultipleChoiceQuestion("bubu","nunu",1,0);
+cat.addQuestion(q1);
+var q2 = new MultipleChoiceQuestion("kuku4","aku4",6,0);
+q2.addAnswer("aku44");
+q2.addAnswer("aku444");
+cat.addQuestion(q2);
 
 
+
+console.log(cat.questions);
+console.log(cat.questions[1].getCorrectAnswer());
+console.log(cat.questions[0].getCorrectAnswer());
+cat.questions[1].print();
+cat.questions[0].print();
 
