@@ -164,7 +164,7 @@ class QuestionsCatalog {
                 break;
             }
             default: {
-                //statements; 
+                
                 break;
             }
         }
@@ -197,8 +197,9 @@ cat.addQuestion(q1);
 
 
 
-console.log(cat.questions);
+
 
 
 cat.generateQuestionnaire(4, 2);
 console.log(cat.generatedQuestionnaire);
+

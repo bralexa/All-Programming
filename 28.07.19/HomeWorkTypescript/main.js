@@ -61,8 +61,7 @@ var MultipleChoiceQuestion = /** @class */ (function (_super) {
     MultipleChoiceQuestion.prototype.addCorrectAnswer = function (answer) {
         if (this.answers.length < 6) {
             this.correctAnswerIndex = this.answers.length;
-            this.answers[this.answers.length] = answer;
-            return '';
+            this.answers.push(answer);
         }
         else {
             return;
@@ -71,8 +70,7 @@ var MultipleChoiceQuestion = /** @class */ (function (_super) {
     MultipleChoiceQuestion.prototype.addAnswer = function (answer) {
         if (this.answers.length < 6) {
             this.numberOfAnswers = this.answers.length;
-            this.answers[this.answers.length] = answer;
-            return this.answers;
+            this.answers.push(answer);
         }
         else {
             return;
@@ -169,7 +167,6 @@ var QuestionsCatalog = /** @class */ (function () {
                 break;
             }
             default: {
-                //statements; 
                 break;
             }
         }
@@ -195,6 +192,5 @@ var q1 = new MultipleChoiceQuestion("bubu5", "nunu5", 1, 0);
 cat.addQuestion(q1);
 var q1 = new MultipleChoiceQuestion("bubu6", "nunu6", 1, 0);
 cat.addQuestion(q1);
-console.log(cat.questions);
 cat.generateQuestionnaire(4, 2);
 console.log(cat.generatedQuestionnaire);
