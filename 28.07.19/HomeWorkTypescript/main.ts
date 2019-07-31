@@ -9,7 +9,7 @@ class Question {
     set(qText: string) {
         this.qText = qText;
     }
-    
+
     public addCorrectAnswer(correctanswer: string) {
         return correctanswer;
     }
@@ -28,51 +28,51 @@ class ShortAnswerQuestion extends Question {
     public getCorrectAnswer() {
         return `The correct answer is "` + this.answer + `"`;
     }
-    public addCorrectAnswer(answer:string) {
+    public addCorrectAnswer(answer: string) {
         return this.answer = answer;
     }
 }
 
 class MultipleChoiceQuestion extends Question {
-    answers:Array<String>;
+    answers: Array<String>;
     numberOfAnswers: number;
     correctAnswerIndex: number;
-    constructor(qText: string, answer:string, numberOfAnswers: number, correctAnswerIndex: number) {
+    constructor(qText: string, answer: string, numberOfAnswers: number, correctAnswerIndex: number) {
         super(qText);
         this.answers = new Array();
         this.answers[0] = answer;
         this.numberOfAnswers = numberOfAnswers;
         this.correctAnswerIndex = correctAnswerIndex;
-        
+
     }
-    public print(){
+    public print() {
         console.log(`The question is "` + this.qText + `"\nAnswers:\n`);
-        for (let i = 0; i < this.answers.length; i++){
-         console.log(`answer ` + (i+1) + ` is "` + this.answers[i] + `"`);
+        for (let i = 0; i < this.answers.length; i++) {
+            console.log(`answer ` + (i + 1) + ` is "` + this.answers[i] + `"`);
         }
     }
 
     public addCorrectAnswer(answer: string) {
-        if (this.answers.length < 6){
+        if (this.answers.length < 6) {
             this.correctAnswerIndex = this.answers.length;
-            this.answers[this.answers.length]= answer;
-            return'';     
-        }else{
+            this.answers[this.answers.length] = answer;
+            return '';
+        } else {
             return;
         }
 
     }
 
-    public addAnswer(answer:String) {
-        if (this.answers.length < 6){
-            this.answers[this.answers.length]= answer;
-            return this.answers;     
-        }else{
+    public addAnswer(answer: String) {
+        if (this.answers.length < 6) {
+            this.answers[this.answers.length] = answer;
+            return this.answers;
+        } else {
             return;
         }
 
     }
-    
+
     public getCorrectAnswer() {
         return `The correct answer is "` + this.answers[this.correctAnswerIndex] + `"`;
     }
@@ -84,34 +84,147 @@ class QuestionsCatalog {
     private short = 1;
     private multiple = 2;
     private both = 3;
-    constructor(){
+    constructor() {
     }
 
-    addQuestion(question){
-        for (let i=0; i<20; i++){
-            if (this.questions[i]){
+    addQuestion(question) {
+        for (let i = 0; i < 20; i++) {
+            if (this.questions[i]) {
             }
-            else{
+            else {
                 this.questions[i] = question;
                 return;
-            }        
+            }
         }
     }
-    
+    public generatedQuestionnaire = Array<MultipleChoiceQuestion>();
+    generateQuestionnaire(num, type) {
+
+        var counter: number = 0;
+        var tempGeneratedQuestionnaire = Array<MultipleChoiceQuestion>();
+
+        switch (type) {
+            case 1: {
+                for (let i = 0; i < 20; i++) {
+                    if (typeof this.questions[i] !== 'undefined' && this.questions[i].numberOfAnswers == 1) {
+                        tempGeneratedQuestionnaire.push(this.questions[i]);
+                    } else {
+                        counter++;
+                    }
+                }
+
+                if (num < tempGeneratedQuestionnaire.length) {
+                    counter = num;
+                } else {
+                    counter = tempGeneratedQuestionnaire.length;
+                }
+                for (let i = 0; i < counter; i++) {
+                    var rand = tempGeneratedQuestionnaire.indexOf(tempGeneratedQuestionnaire[Math.floor(Math.random() * tempGeneratedQuestionnaire.length)]);
+                    for (let j = 0; j < this.generatedQuestionnaire.length; j++) {
+
+                        if (this.generatedQuestionnaire[j].qText == tempGeneratedQuestionnaire[rand].qText) {
+                            break;
+                        }else{}
+                    }
+                    this.generatedQuestionnaire.push(tempGeneratedQuestionnaire[rand]);
+                }
+                break;
+            }
+            case 2: {
+                for (let i = 0; i < 20; i++) {
+                    if (typeof this.questions[i] !== 'undefined' && this.questions[i].numberOfAnswers > 1) {
+                        tempGeneratedQuestionnaire.push(this.questions[i]);
+                    }
+                }
+            console.log(tempGeneratedQuestionnaire);
+                
+                if (num < tempGeneratedQuestionnaire.length) {
+                    counter = num;
+                } else {
+                    counter = tempGeneratedQuestionnaire.length;
+                }
+                for (let i = 0; i < counter; i++) {
+                    var rand = tempGeneratedQuestionnaire.indexOf(tempGeneratedQuestionnaire[Math.floor(Math.random() * tempGeneratedQuestionnaire.length)]);
+                    for (let j = 0; j < this.generatedQuestionnaire.length; j++) {
+                        console.log(this.generatedQuestionnaire[j]);
+                        console.log(tempGeneratedQuestionnaire[rand]);
+                        
+                        
+                        if (this.generatedQuestionnaire[j].qText == tempGeneratedQuestionnaire[rand].qText) {
+                            break;
+                        }else{}
+                    }
+                    this.generatedQuestionnaire.push(tempGeneratedQuestionnaire[rand]);
+                }
+            break;
+            }
+            case 3: {
+                for (let i = 0; i < 20; i++) {
+                    if (typeof this.questions[i] !== 'undefined') {
+                        tempGeneratedQuestionnaire.push(this.questions[i]);
+                    } else {
+                        counter++;
+                    }
+                }
+
+                if (num < tempGeneratedQuestionnaire.length) {
+                    counter = num;
+                } else {
+                    counter = tempGeneratedQuestionnaire.length;
+                }
+                for (let i = 0; i < counter; i++) {
+                    var rand = tempGeneratedQuestionnaire.indexOf(tempGeneratedQuestionnaire[Math.floor(Math.random() * tempGeneratedQuestionnaire.length)]);
+                    for (let j = 0; j < this.generatedQuestionnaire.length; j++) {
+
+                        if (this.generatedQuestionnaire[j].qText === tempGeneratedQuestionnaire[rand].qText) {
+                            break;
+                        }
+                    }
+                    this.generatedQuestionnaire.push(tempGeneratedQuestionnaire[rand]);
+                }
+                break;
+            }
+            default: {
+                //statements; 
+                break;
+            }
+        }
+
+
+
+
+
+    }
+
 }
+
+
+
 var cat = new QuestionsCatalog();
-var q1 = new MultipleChoiceQuestion("bubu","nunu",1,0);
+var q1 = new MultipleChoiceQuestion("bubu", "nunu", 1, 0);
 cat.addQuestion(q1);
-var q2 = new MultipleChoiceQuestion("kuku4","aku4",6,0);
+var q2 = new MultipleChoiceQuestion("kuku4", "aku4", 6, 0);
 q2.addAnswer("aku44");
 q2.addAnswer("aku444");
 cat.addQuestion(q2);
 
+var q1 = new MultipleChoiceQuestion("bubu2", "nunu2", 1, 0);
+cat.addQuestion(q1);
+q1.addAnswer("aku44");
+q1.addAnswer("aku444");
+var q1 = new MultipleChoiceQuestion("bubu3", "nunu3", 1, 0);
+cat.addQuestion(q1);
+var q1 = new MultipleChoiceQuestion("bubu4", "nunu4", 1, 0);
+cat.addQuestion(q1);
+var q1 = new MultipleChoiceQuestion("bubu5", "nunu5", 1, 0);
+cat.addQuestion(q1);
+var q1 = new MultipleChoiceQuestion("bubu6", "nunu6", 1, 0);
+cat.addQuestion(q1);
+
 
 
 console.log(cat.questions);
-console.log(cat.questions[1].getCorrectAnswer());
-console.log(cat.questions[0].getCorrectAnswer());
-cat.questions[1].print();
-cat.questions[0].print();
 
+
+cat.generateQuestionnaire(7, 2);
+console.log(cat.generatedQuestionnaire);

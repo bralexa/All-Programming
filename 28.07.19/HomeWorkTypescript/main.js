@@ -88,6 +88,7 @@ var QuestionsCatalog = /** @class */ (function () {
         this.short = 1;
         this.multiple = 2;
         this.both = 3;
+        this.generatedQuestionnaire = Array();
     }
     QuestionsCatalog.prototype.addQuestion = function (question) {
         for (var i = 0; i < 20; i++) {
@@ -96,6 +97,96 @@ var QuestionsCatalog = /** @class */ (function () {
             else {
                 this.questions[i] = question;
                 return;
+            }
+        }
+    };
+    QuestionsCatalog.prototype.generateQuestionnaire = function (num, type) {
+        var counter = 0;
+        var tempGeneratedQuestionnaire = Array();
+        switch (type) {
+            case 1: {
+                for (var i = 0; i < 20; i++) {
+                    if (typeof this.questions[i] !== 'undefined' && this.questions[i].numberOfAnswers == 1) {
+                        tempGeneratedQuestionnaire.push(this.questions[i]);
+                    }
+                    else {
+                        counter++;
+                    }
+                }
+                if (num < tempGeneratedQuestionnaire.length) {
+                    counter = num;
+                }
+                else {
+                    counter = tempGeneratedQuestionnaire.length;
+                }
+                for (var i = 0; i < counter; i++) {
+                    var rand = tempGeneratedQuestionnaire.indexOf(tempGeneratedQuestionnaire[Math.floor(Math.random() * tempGeneratedQuestionnaire.length)]);
+                    for (var j = 0; j < this.generatedQuestionnaire.length; j++) {
+                        if (this.generatedQuestionnaire[j].qText == tempGeneratedQuestionnaire[rand].qText) {
+                            break;
+                        }
+                        else { }
+                    }
+                    this.generatedQuestionnaire.push(tempGeneratedQuestionnaire[rand]);
+                }
+                break;
+            }
+            case 2: {
+                for (var i = 0; i < 20; i++) {
+                    if (typeof this.questions[i] !== 'undefined' && this.questions[i].numberOfAnswers > 1) {
+                        tempGeneratedQuestionnaire.push(this.questions[i]);
+                    }
+                }
+                console.log(tempGeneratedQuestionnaire);
+                if (num < tempGeneratedQuestionnaire.length) {
+                    counter = num;
+                }
+                else {
+                    counter = tempGeneratedQuestionnaire.length;
+                }
+                for (var i = 0; i < counter; i++) {
+                    var rand = tempGeneratedQuestionnaire.indexOf(tempGeneratedQuestionnaire[Math.floor(Math.random() * tempGeneratedQuestionnaire.length)]);
+                    for (var j = 0; j < this.generatedQuestionnaire.length; j++) {
+                        console.log(this.generatedQuestionnaire[j]);
+                        console.log(tempGeneratedQuestionnaire[rand]);
+                        if (this.generatedQuestionnaire[j].qText == tempGeneratedQuestionnaire[rand].qText) {
+                            break;
+                        }
+                        else { }
+                    }
+                    this.generatedQuestionnaire.push(tempGeneratedQuestionnaire[rand]);
+                }
+                break;
+            }
+            case 3: {
+                for (var i = 0; i < 20; i++) {
+                    if (typeof this.questions[i] !== 'undefined') {
+                        tempGeneratedQuestionnaire.push(this.questions[i]);
+                    }
+                    else {
+                        counter++;
+                    }
+                }
+                if (num < tempGeneratedQuestionnaire.length) {
+                    counter = num;
+                }
+                else {
+                    counter = tempGeneratedQuestionnaire.length;
+                }
+                for (var i = 0; i < counter; i++) {
+                    var rand = tempGeneratedQuestionnaire.indexOf(tempGeneratedQuestionnaire[Math.floor(Math.random() * tempGeneratedQuestionnaire.length)]);
+                    for (var j = 0; j < this.generatedQuestionnaire.length; j++) {
+                        if (this.generatedQuestionnaire[j].qText === tempGeneratedQuestionnaire[rand].qText) {
+                            break;
+                        }
+                    }
+                    this.generatedQuestionnaire.push(tempGeneratedQuestionnaire[rand]);
+                }
+                break;
+            }
+            default: {
+                //statements; 
+                break;
             }
         }
     };
@@ -108,8 +199,18 @@ var q2 = new MultipleChoiceQuestion("kuku4", "aku4", 6, 0);
 q2.addAnswer("aku44");
 q2.addAnswer("aku444");
 cat.addQuestion(q2);
+var q1 = new MultipleChoiceQuestion("bubu2", "nunu2", 1, 0);
+cat.addQuestion(q1);
+q1.addAnswer("aku44");
+q1.addAnswer("aku444");
+var q1 = new MultipleChoiceQuestion("bubu3", "nunu3", 1, 0);
+cat.addQuestion(q1);
+var q1 = new MultipleChoiceQuestion("bubu4", "nunu4", 1, 0);
+cat.addQuestion(q1);
+var q1 = new MultipleChoiceQuestion("bubu5", "nunu5", 1, 0);
+cat.addQuestion(q1);
+var q1 = new MultipleChoiceQuestion("bubu6", "nunu6", 1, 0);
+cat.addQuestion(q1);
 console.log(cat.questions);
-console.log(cat.questions[1].getCorrectAnswer());
-console.log(cat.questions[0].getCorrectAnswer());
-cat.questions[1].print();
-cat.questions[0].print();
+cat.generateQuestionnaire(7, 2);
+console.log(cat.generatedQuestionnaire);
