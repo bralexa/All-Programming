@@ -13,8 +13,6 @@ class Question {
     public addCorrectAnswer(correctanswer: string) {
         return correctanswer;
     }
-
-
 }
 
 class ShortAnswerQuestion extends Question {
@@ -65,6 +63,7 @@ class MultipleChoiceQuestion extends Question {
 
     public addAnswer(answer: String) {
         if (this.answers.length < 6) {
+            this.numberOfAnswers = this.answers.length;
             this.answers[this.answers.length] = answer;
             return this.answers;
         } else {
@@ -120,13 +119,8 @@ class QuestionsCatalog {
                 }
                 for (let i = 0; i < counter; i++) {
                     var rand = tempGeneratedQuestionnaire.indexOf(tempGeneratedQuestionnaire[Math.floor(Math.random() * tempGeneratedQuestionnaire.length)]);
-                    for (let j = 0; j < this.generatedQuestionnaire.length; j++) {
-
-                        if (this.generatedQuestionnaire[j].qText == tempGeneratedQuestionnaire[rand].qText) {
-                            break;
-                        }else{}
-                    }
-                    this.generatedQuestionnaire.push(tempGeneratedQuestionnaire[rand]);
+                    var item = tempGeneratedQuestionnaire.splice(rand,1);                   
+                    this.generatedQuestionnaire.push(item[0]);
                 }
                 break;
             }
@@ -136,8 +130,7 @@ class QuestionsCatalog {
                         tempGeneratedQuestionnaire.push(this.questions[i]);
                     }
                 }
-            console.log(tempGeneratedQuestionnaire);
-                
+
                 if (num < tempGeneratedQuestionnaire.length) {
                     counter = num;
                 } else {
@@ -145,16 +138,8 @@ class QuestionsCatalog {
                 }
                 for (let i = 0; i < counter; i++) {
                     var rand = tempGeneratedQuestionnaire.indexOf(tempGeneratedQuestionnaire[Math.floor(Math.random() * tempGeneratedQuestionnaire.length)]);
-                    for (let j = 0; j < this.generatedQuestionnaire.length; j++) {
-                        console.log(this.generatedQuestionnaire[j]);
-                        console.log(tempGeneratedQuestionnaire[rand]);
-                        
-                        
-                        if (this.generatedQuestionnaire[j].qText == tempGeneratedQuestionnaire[rand].qText) {
-                            break;
-                        }else{}
-                    }
-                    this.generatedQuestionnaire.push(tempGeneratedQuestionnaire[rand]);
+                    var item = tempGeneratedQuestionnaire.splice(rand,1);                   
+                    this.generatedQuestionnaire.push(item[0]);
                 }
             break;
             }
@@ -174,13 +159,9 @@ class QuestionsCatalog {
                 }
                 for (let i = 0; i < counter; i++) {
                     var rand = tempGeneratedQuestionnaire.indexOf(tempGeneratedQuestionnaire[Math.floor(Math.random() * tempGeneratedQuestionnaire.length)]);
-                    for (let j = 0; j < this.generatedQuestionnaire.length; j++) {
-
-                        if (this.generatedQuestionnaire[j].qText === tempGeneratedQuestionnaire[rand].qText) {
-                            break;
-                        }
-                    }
-                    this.generatedQuestionnaire.push(tempGeneratedQuestionnaire[rand]);
+                    var item = tempGeneratedQuestionnaire.splice(rand,1);                   
+                    this.generatedQuestionnaire.push(item[0]);
+                    
                 }
                 break;
             }
@@ -226,5 +207,5 @@ cat.addQuestion(q1);
 console.log(cat.questions);
 
 
-cat.generateQuestionnaire(7, 2);
+cat.generateQuestionnaire(4, 2);
 console.log(cat.generatedQuestionnaire);

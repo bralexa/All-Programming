@@ -70,6 +70,7 @@ var MultipleChoiceQuestion = /** @class */ (function (_super) {
     };
     MultipleChoiceQuestion.prototype.addAnswer = function (answer) {
         if (this.answers.length < 6) {
+            this.numberOfAnswers = this.answers.length;
             this.answers[this.answers.length] = answer;
             return this.answers;
         }
@@ -121,13 +122,8 @@ var QuestionsCatalog = /** @class */ (function () {
                 }
                 for (var i = 0; i < counter; i++) {
                     var rand = tempGeneratedQuestionnaire.indexOf(tempGeneratedQuestionnaire[Math.floor(Math.random() * tempGeneratedQuestionnaire.length)]);
-                    for (var j = 0; j < this.generatedQuestionnaire.length; j++) {
-                        if (this.generatedQuestionnaire[j].qText == tempGeneratedQuestionnaire[rand].qText) {
-                            break;
-                        }
-                        else { }
-                    }
-                    this.generatedQuestionnaire.push(tempGeneratedQuestionnaire[rand]);
+                    var item = tempGeneratedQuestionnaire.splice(rand, 1);
+                    this.generatedQuestionnaire.push(item[0]);
                 }
                 break;
             }
@@ -137,7 +133,6 @@ var QuestionsCatalog = /** @class */ (function () {
                         tempGeneratedQuestionnaire.push(this.questions[i]);
                     }
                 }
-                console.log(tempGeneratedQuestionnaire);
                 if (num < tempGeneratedQuestionnaire.length) {
                     counter = num;
                 }
@@ -146,15 +141,8 @@ var QuestionsCatalog = /** @class */ (function () {
                 }
                 for (var i = 0; i < counter; i++) {
                     var rand = tempGeneratedQuestionnaire.indexOf(tempGeneratedQuestionnaire[Math.floor(Math.random() * tempGeneratedQuestionnaire.length)]);
-                    for (var j = 0; j < this.generatedQuestionnaire.length; j++) {
-                        console.log(this.generatedQuestionnaire[j]);
-                        console.log(tempGeneratedQuestionnaire[rand]);
-                        if (this.generatedQuestionnaire[j].qText == tempGeneratedQuestionnaire[rand].qText) {
-                            break;
-                        }
-                        else { }
-                    }
-                    this.generatedQuestionnaire.push(tempGeneratedQuestionnaire[rand]);
+                    var item = tempGeneratedQuestionnaire.splice(rand, 1);
+                    this.generatedQuestionnaire.push(item[0]);
                 }
                 break;
             }
@@ -175,12 +163,8 @@ var QuestionsCatalog = /** @class */ (function () {
                 }
                 for (var i = 0; i < counter; i++) {
                     var rand = tempGeneratedQuestionnaire.indexOf(tempGeneratedQuestionnaire[Math.floor(Math.random() * tempGeneratedQuestionnaire.length)]);
-                    for (var j = 0; j < this.generatedQuestionnaire.length; j++) {
-                        if (this.generatedQuestionnaire[j].qText === tempGeneratedQuestionnaire[rand].qText) {
-                            break;
-                        }
-                    }
-                    this.generatedQuestionnaire.push(tempGeneratedQuestionnaire[rand]);
+                    var item = tempGeneratedQuestionnaire.splice(rand, 1);
+                    this.generatedQuestionnaire.push(item[0]);
                 }
                 break;
             }
@@ -212,5 +196,5 @@ cat.addQuestion(q1);
 var q1 = new MultipleChoiceQuestion("bubu6", "nunu6", 1, 0);
 cat.addQuestion(q1);
 console.log(cat.questions);
-cat.generateQuestionnaire(7, 2);
+cat.generateQuestionnaire(4, 2);
 console.log(cat.generatedQuestionnaire);
