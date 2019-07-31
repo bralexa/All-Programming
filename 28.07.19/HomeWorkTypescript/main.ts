@@ -95,7 +95,7 @@ class QuestionsCatalog {
         }
     }
     public generatedQuestionnaire = Array<MultipleChoiceQuestion>();
-    generateQuestionnaire(num, type) {
+    generateQuestionnaire(num:number, type:number) {
 
         var counter: number = 0;
         var tempGeneratedQuestionnaire = Array<MultipleChoiceQuestion>();
