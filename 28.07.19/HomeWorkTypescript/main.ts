@@ -50,11 +50,10 @@ class MultipleChoiceQuestion extends Question {
         }
     }
 
-    public addCorrectAnswer(answer: string) {
+    public addCorrectAnswer(answer: string):string {
         if (this.answers.length < 6) {
             this.correctAnswerIndex = this.answers.length;
-            this.answers[this.answers.length] = answer;
-            return '';
+            this.answers.push(answer);
         } else {
             return;
         }
@@ -64,8 +63,7 @@ class MultipleChoiceQuestion extends Question {
     public addAnswer(answer: String) {
         if (this.answers.length < 6) {
             this.numberOfAnswers = this.answers.length;
-            this.answers[this.answers.length] = answer;
-            return this.answers;
+            this.answers.push(answer);
         } else {
             return;
         }
@@ -119,7 +117,7 @@ class QuestionsCatalog {
                 }
                 for (let i = 0; i < counter; i++) {
                     var rand = tempGeneratedQuestionnaire.indexOf(tempGeneratedQuestionnaire[Math.floor(Math.random() * tempGeneratedQuestionnaire.length)]);
-                    var item = tempGeneratedQuestionnaire.splice(rand,1);                   
+                    var item = tempGeneratedQuestionnaire.splice(rand, 1);
                     this.generatedQuestionnaire.push(item[0]);
                 }
                 break;
@@ -138,10 +136,10 @@ class QuestionsCatalog {
                 }
                 for (let i = 0; i < counter; i++) {
                     var rand = tempGeneratedQuestionnaire.indexOf(tempGeneratedQuestionnaire[Math.floor(Math.random() * tempGeneratedQuestionnaire.length)]);
-                    var item = tempGeneratedQuestionnaire.splice(rand,1);                   
+                    var item = tempGeneratedQuestionnaire.splice(rand, 1);
                     this.generatedQuestionnaire.push(item[0]);
                 }
-            break;
+                break;
             }
             case 3: {
                 for (let i = 0; i < 20; i++) {
@@ -159,9 +157,9 @@ class QuestionsCatalog {
                 }
                 for (let i = 0; i < counter; i++) {
                     var rand = tempGeneratedQuestionnaire.indexOf(tempGeneratedQuestionnaire[Math.floor(Math.random() * tempGeneratedQuestionnaire.length)]);
-                    var item = tempGeneratedQuestionnaire.splice(rand,1);                   
+                    var item = tempGeneratedQuestionnaire.splice(rand, 1);
                     this.generatedQuestionnaire.push(item[0]);
-                    
+
                 }
                 break;
             }
@@ -170,11 +168,6 @@ class QuestionsCatalog {
                 break;
             }
         }
-
-
-
-
-
     }
 
 }
