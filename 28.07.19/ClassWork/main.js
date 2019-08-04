@@ -72,8 +72,7 @@ var Circle = /** @class */ (function (_super) {
         return 2 * 3.14 * this.radius;
     };
     Circle.prototype.print = function () {
-        console.log("This is circle, coordinates: (" + this.x + ", " + this.y + "), color: " + this.color + ", Radius: " + this.radius + ", area is: " + this.AreaCalculation() + "sm^2, perimeter is: " + this.PerimeterCalculation() + "sm");
-        ;
+        return "This is circle, coordinates: (" + this.x + ", " + this.y + "), color: " + this.color + ", Radius: " + this.radius + ", area is: " + this.AreaCalculation() + "sm^2, perimeter is: " + this.PerimeterCalculation() + "sm";
     };
     return Circle;
 }(Coordinates));
@@ -116,11 +115,35 @@ var Rectangle = /** @class */ (function (_super) {
     };
     return Rectangle;
 }(Coordinates));
-var square = new Square(5, 5, 'Red', 4);
-square.print();
-console.log(square.draw());
-var circle = new Circle(3, 4, 'blue', 5);
-circle.print();
-var rectangle = new Rectangle(6, 7, 'Black', 6, 8);
-rectangle.print();
-console.log(rectangle.draw());
+var Tester = /** @class */ (function () {
+    function Tester() {
+    }
+    Tester.prototype.driving = function (shape) {
+        return shape.draw();
+    };
+    Tester.prototype.test = function () {
+        var random = Math.ceil(Math.random() * 3);
+        console.log(random);
+        switch (random) {
+            case 1:
+                var circle = new Circle(3, 4, 'blue', 5);
+                console.log(circle.print() + (", diameter is: " + circle.radius * 2));
+                break;
+            case 2:
+                var square = new Square(5, 5, 'Red', 4);
+                square.print();
+                console.log(this.driving(square));
+                break;
+            case 3:
+                var rectangle = new Rectangle(6, 7, 'Black', 6, 8);
+                rectangle.print();
+                console.log(this.driving(rectangle));
+                break;
+            default:
+                break;
+        }
+    };
+    return Tester;
+}());
+var test = new Tester();
+test.test();
