@@ -5,4 +5,47 @@
 </div>
 <div class="custom-control custom-switch">
     <input type="checkbox" class="custom-control-input" id="customSwitch2" checked>
-    <label for="customSwitch2" class="custom-control-label"></label></div>
+    <label for="customSwitch2" class="custom-control-label"></label>
+</div>
+
+<style>
+.parallax {
+  perspective: 1px;
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+.parallax__layer {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+.parallax__layer--base {
+  transform: translateZ(0);
+}
+.parallax__layer--back {
+  transform: translateZ(-1px) scale(2);
+}
+.parallax__group {
+  position: relative;
+  height: 100vh;
+  transform-style: preserve-3d;
+}
+</style>
+
+<!--parallax-->
+<div class="parallax">
+    <div class="parallax__group">
+        <div class="parallax__layer parallax__layer--back" style="background-image: url(img/crypto-coins.jpg)">
+            Blllldlkjfvlfsjbhksjbn
+        </div>
+        <div class="parallax__layer parallax__layer--base" style="background-color: rgb(87, 11, 11)">
+            ....
+        </div>
+    </div>
+    <div class="parallax__group">
+        ...
+    </div>
+</div>

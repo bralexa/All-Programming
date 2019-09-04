@@ -5,6 +5,7 @@ body {
 }
 
 .container {
+  background-color: rgba(252, 248, 248, 0.803);
   margin: 10px auto;
 }
 
@@ -172,5 +173,38 @@ body {
 .checkbox-slider-md input + span:before {
   height: 30px;
   line-height: 30px;
+}
+
+.parallax {
+  -webkit-perspective: 1px;
+          perspective: 1px;
+  height: 100vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.parallax__layer {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.parallax__layer--base {
+  -webkit-transform: translateZ(0);
+          transform: translateZ(0);
+}
+
+.parallax__layer--back {
+  -webkit-transform: translateZ(-1px) scale(2);
+          transform: translateZ(-1px) scale(2);
+}
+
+.parallax__group {
+  position: relative;
+  height: 100vh;
+  -webkit-transform-style: preserve-3d;
+          transform-style: preserve-3d;
 }
 /*# sourceMappingURL=style.css.map */
