@@ -1,5 +1,5 @@
 body {
-  background: rgba(22, 12, 12, 0.25);
+  background: rgba(22, 12, 12, 0.1);
   font-family: 'Roboto', sans-serif;
   font-weight: 400;
 }
@@ -8,17 +8,17 @@ body {
   margin: 10px auto;
 }
 
-.header, .container {
+.header, .box-shaded {
   -webkit-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
           box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
 }
 
-.header-crypto, .container-crypto {
+.header-crypto, .box-shaded-crypto {
   text-align: center;
   color: #f80606;
 }
 
-.header-crypto-crypto_subheader, .container-crypto-crypto_subheader {
+.header-crypto-crypto_subheader, .box-shaded-crypto-crypto_subheader {
   text-align: right;
 }
 
