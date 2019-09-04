@@ -178,7 +178,7 @@ body {
 .parallax {
   -webkit-perspective: 1px;
           perspective: 1px;
-  height: 100vh;
+  height: 100%;
   overflow-x: hidden;
   overflow-y: auto;
 }
@@ -208,3 +208,5 @@ body {
           transform-style: preserve-3d;
 }
 /*# sourceMappingURL=style.css.map */
+
+
