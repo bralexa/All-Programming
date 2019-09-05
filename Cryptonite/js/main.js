@@ -21,22 +21,21 @@ function getCoins() {
             var counter = 0;
             var i = setInterval(function () {
                 // do your thing
-                var percent = '<div class="container" id="overallProgress"><h3>Loading coins...'+counter+'%</h3><div class="box progress" style="height: 2rem;"><div class="progress-bar progress-bar-striped progress-bar-animated" style="width:' + counter + '%; height: 100%;"></div></div></div>';
+                var percent = '<div class="container" id="overallProgress"><h3>Loading coins...' + counter + '%</h3><div class="box progress" style="height: 2rem;"><div class="progress-bar progress-bar-striped progress-bar-animated" style="width:' + counter + '%; height: 100%;"></div></div></div>';
                 $('.main-info').html(percent);
                 counter++;
                 if (counter === 101) {
                     clearInterval(i);
                     $('#overallProgress').empty();
-                    for (let i = 0; i < 100; i++){
+                    for (let i = 0; i < 100; i++) {
                         var element = coinsArray[i];
-                var id = element[0];
-                var name = element[1];
-                var symbol = element[2];
-                createCard(symbol, name, id);
-                
+                        var id = element[0];
+                        var name = element[1];
+                        var symbol = element[2];
+                        createCard(symbol, name, id);
                     }
                 }
-            }, 50);
+            }, 20);
         },
         error: function (error) {
             console.log("error : ", error)
@@ -44,7 +43,7 @@ function getCoins() {
         complete: function () {
 
         }
-    })  
+    })
 }
 
 function moreInfo(symbol) {
@@ -68,7 +67,7 @@ function moreInfo(symbol) {
                     var usd_price = data.market_data.current_price.usd;
                     var eur_price = data.market_data.current_price.eur;
                     var ils_price = data.market_data.current_price.ils;
-                    string = '<div class="container col"><img src = "' + image_url + '" alt = "" class="logo-img" ></div><div class="container col moreinfo"><p>' + eur_price + ' EUR</p><p>' + usd_price + ' USD</p><p>' + ils_price + ' ILS</p></div>'
+                    string = '<div class="container col"><img src = "' + image_url + '" alt = "" class="logo-img" ></div><div class="container col moreinfo"><p>' + eur_price + '<strong> €</strong></p><p>' + usd_price + '<strong> $</strong></p><p>' + ils_price + '<strong> ₪</strong></p></div>'
                     $('#inforow_' + symbol).html(string);
                     $('#' + symbol).text('Close');
                     $('#' + symbol).attr({
@@ -84,7 +83,7 @@ function moreInfo(symbol) {
                 }
             })
         }
-    }, 10);    
+    }, 5);
 }
 
 function clearInfo(id) {
