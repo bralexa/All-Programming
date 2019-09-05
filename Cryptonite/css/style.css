@@ -5,7 +5,7 @@ body {
 }
 
 .container {
-  background-color: rgba(252, 248, 248, 0.803);
+  background-color: rgba(255, 255, 255, 0.701);
   margin: 10px auto;
 }
 
@@ -16,7 +16,7 @@ body {
 
 .header-crypto, .box-shaded-crypto {
   text-align: center;
-  color: #f80606;
+  color: #0636f8;
 }
 
 .header-crypto-crypto_subheader, .box-shaded-crypto-crypto_subheader {

@@ -14,7 +14,6 @@ function getCoins() {
         url: all_coins_url,
         async: false,
         success: function (data) {
-
             coins = data.splice(100, 100);
             coins.forEach((value) => { coinsArray.push([value.symbol, value.name, value.id]) });
             window.localStorage.coinsList = JSON.stringify(coins);
@@ -22,17 +21,20 @@ function getCoins() {
             var counter = 0;
             var i = setInterval(function () {
                 // do your thing
-                var element = coinsArray[counter];
+                var percent = '<div class="container" id="overallProgress"><h3>Loading coins...'+counter+'%</h3><div class="box progress" style="height: 2rem;"><div class="progress-bar progress-bar-striped progress-bar-animated" style="width:' + counter + '%; height: 100%;"></div></div></div>';
+                $('.main-info').html(percent);
+                counter++;
+                if (counter === 101) {
+                    clearInterval(i);
+                    $('#overallProgress').empty();
+                    for (let i = 0; i < 100; i++){
+                        var element = coinsArray[i];
                 var symbol = element[0];
                 var name = element[1];
                 var id = element[2];
                 createCard(symbol, name, id);
-                var percent = '<div class="container col align-items-center" id="overallProgress"><h2>Loading coins...</h2><div class="progress"><div class="progress-bar progress-bar-striped progress - bar - animated" style="width:' + counter + '%;"></div></div></div>';
-                $('.main-info').html(percent);
-                counter++;
-                if (counter === 100) {
-                    clearInterval(i);
-                    $('#overallProgress').empty();
+                
+                    }
                 }
             }, 50);
         },
@@ -40,7 +42,7 @@ function getCoins() {
             console.log("error : ", error)
         },
         complete: function () {
-          
+
         }
     })
 }
@@ -55,32 +57,32 @@ function moreInfo(symbol) {
         counter++;
         if (counter === 101) {
             clearInterval(i);
-        $.ajax({
-        type: 'GET',
-        datatype: 'json',
-        url: singe_url,
-        async: false,
-        id: symbol,
-        success: function (data) {
-            var image_url = data.image.large;
-            var usd_price = data.market_data.current_price.usd;
-            var eur_price = data.market_data.current_price.eur;
-            var ils_price = data.market_data.current_price.ils;
-            string = '<div class="container col"><img src = "' + image_url + '" alt = "" class="logo-img" ></div><div class="container col moreinfo"><p>' + eur_price + ' EUR</p><p>' + usd_price + ' USD</p><p>' + ils_price + ' ILS</p></div>'
-            $('#inforow_' + symbol).html(string);
-            $('#' + symbol).text('Close');
-            $('#' + symbol).attr({
-                onclick: 'clearInfo(this.id)'
-                
-            });
-        },
-        error: function (error) {
-            console.log("error : ", error)
-        },
-        complete: function () {
+            $.ajax({
+                type: 'GET',
+                datatype: 'json',
+                url: singe_url,
+                async: false,
+                id: symbol,
+                success: function (data) {
+                    var image_url = data.image.large;
+                    var usd_price = data.market_data.current_price.usd;
+                    var eur_price = data.market_data.current_price.eur;
+                    var ils_price = data.market_data.current_price.ils;
+                    string = '<div class="container col"><img src = "' + image_url + '" alt = "" class="logo-img" ></div><div class="container col moreinfo"><p>' + eur_price + ' EUR</p><p>' + usd_price + ' USD</p><p>' + ils_price + ' ILS</p></div>'
+                    $('#inforow_' + symbol).html(string);
+                    $('#' + symbol).text('Close');
+                    $('#' + symbol).attr({
+                        onclick: 'clearInfo(this.id)'
 
-        }
-    })
+                    });
+                },
+                error: function (error) {
+                    console.log("error : ", error)
+                },
+                complete: function () {
+
+                }
+            })
         }
     }, 10);
 }
@@ -101,11 +103,11 @@ function createCard(symbol, name, id) {
     string += '<div><p class="fullname">' + name + '</p></div><div class="row info" id="inforow_' + id + '"></div>';
     string += '<button type="button" class="btn btn-outline-secondary" onclick="moreInfo(this.id)" id="' + id + '">More info</button></div>';
     $('.for_insert').append(string);
-    
+
 }
 
 function handleChange(checkbox, checkedCoin) {
-    
+
     var checkedId = checkedCoin;
 
 
