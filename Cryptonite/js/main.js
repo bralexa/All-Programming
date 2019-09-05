@@ -15,7 +15,7 @@ function getCoins() {
         async: false,
         success: function (data) {
             coins = data.splice(100, 100);
-            coins.forEach((value) => { coinsArray.push([value.symbol, value.name, value.id]) });
+            coins.forEach((value) => { coinsArray.push([value.id, value.name, value.symbol]) });
             window.localStorage.coinsList = JSON.stringify(coins);
 
             var counter = 0;
@@ -29,9 +29,9 @@ function getCoins() {
                     $('#overallProgress').empty();
                     for (let i = 0; i < 100; i++){
                         var element = coinsArray[i];
-                var symbol = element[0];
+                var id = element[0];
                 var name = element[1];
-                var id = element[2];
+                var symbol = element[2];
                 createCard(symbol, name, id);
                 
                     }
@@ -44,7 +44,7 @@ function getCoins() {
         complete: function () {
 
         }
-    })
+    })  
 }
 
 function moreInfo(symbol) {
@@ -84,7 +84,7 @@ function moreInfo(symbol) {
                 }
             })
         }
-    }, 10);
+    }, 10);    
 }
 
 function clearInfo(id) {
