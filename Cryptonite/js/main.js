@@ -48,7 +48,7 @@ function moreInfo(symbol) {
 
             console.log(eur_price);
             var string = '';
-            string = '<div class="container col"><img src = "' + image_url + '" alt = "" class="logo-img" ></div ><div class="container col"><p class="moreinfo" id="">' + eur_price + ' EUR</p><p class="moreinfo" id="">' + usd_price + ' USD</p><p class="moreinfo" id="">' + ils_price + ' ILS</p></div>'
+            string = '<div class="container col"><img src = "' + image_url + '" alt = "" class="logo-img" ></div><div class="container col moreinfo"><p>' + eur_price + ' EUR</p><p>' + usd_price + ' USD</p><p>' + ils_price + ' ILS</p></div>'
             $('#inforow_' + symbol).html(string);
         },
         error: function (error) {
@@ -71,6 +71,6 @@ function createCard(symbol, name, id) {
     string += '<label><input type="checkbox" id="checkbox_' + symbol + '"><span></span></label></div></div></div>';
     string += '<div><p class="fullname">' + name + '</p></div><div class="row info" id="inforow_' + id + '"></div>';
     string += '<button type="button" class="btn btn-outline-secondary" onclick="moreInfo(this.id)" id="' + id + '">More info</button></div>';
-    $('#for_insert').append(string);
+    $('.for_insert').append(string);
 
 }

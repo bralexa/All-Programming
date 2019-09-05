@@ -31,14 +31,10 @@ body {
 
 .logo-img {
   width: 93%;
-  margin-left: 10px;
 }
 
 .checkbox-slider--b-flat {
   margin: 15px;
-}
-
-.checkbox-slider--b-flat {
   position: relative;
 }
 
