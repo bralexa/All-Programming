@@ -9,6 +9,9 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,900,900i&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/bootstrap-grid.min.css">
+    <link href="css/bootstrap-switch.css" rel="stylesheet">
+
+
     <link rel="stylesheet" href="css/style.css">
 </head>
 
@@ -21,9 +24,11 @@
     <div class="container">
         <div class="row">
             <div class="container col-sm-6 d-flex align-items-center justify-content-around">
-                <button type="button" class="btn btn-outline-secondary" value="Reload Page" onClick="document.location.reload(true)">All coins</button>
+                <button type="button" class="btn btn-outline-secondary" value="Reload Page"
+                    onClick="document.location.reload(true)">All coins</button>
                 <button type="button" class="btn btn-outline-secondary">Live reports</button>
-                <button type="button" class="btn btn-outline-secondary" href="blabla.html" role="button">About me</button>
+                <button type="button" class="btn btn-outline-secondary" href="blabla.html" role="button">About
+                    me</button>
             </div>
             <div class="container col-sm-6 d-flex align-items-center justify-content-between">
                 <input type="text" id="searchInput" class="form-control" placeholder="Find your favorite coin">
@@ -34,13 +39,10 @@
 
     <div class="parallax">
         <div class="parallax__group">
-            <div class="parallax__layer parallax__layer--back" style="background-image: url(img/back-coins.png)">
-            <div class="box">
-                <div class="main-info"></div>
-            </div>
-            </div>
+            <div class="parallax__layer parallax__layer--back" style="background-image: url(img/back-coins.png)"></div>
             <div class="parallax__layer parallax__layer--base">
                 <section class="main">
+                    <div class="main-info"></div>
                     <div class="container">
                         <div class="row for_insert" id="for_insert"></div>
                     </div>
@@ -49,16 +51,13 @@
         </div>
 
     </div>
-
-
-
-    <!-- /.main -->
-
-
-    
-    <script src="js/popper.min.js"></script>
-    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <script type="text/javascript" src="js/main.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap-switch.js"></script>
+
+
 </body>
 
 </html>
