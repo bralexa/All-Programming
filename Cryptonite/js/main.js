@@ -8,6 +8,8 @@ getCoins();
 
 
 function getCoins() {
+
+
     $.ajax({
         type: 'GET',
         datatype: 'json',
@@ -16,27 +18,33 @@ function getCoins() {
         success: function (data) {
             coins = data.splice(2000, 100);
             coins.forEach((value) => { coinsArray.push([value.id, value.name, value.symbol]) });
-            window.localStorage.coinsList = JSON.stringify(coins);
+            // window.localStorage.coinsList = JSON.stringify(coins);
+            for (let i = 0; i < 100; i++) {
+                var element = coinsArray[i];
+                var id = element[0];
+                var name = element[1];
+                var symbol = element[2];
+                createCard(symbol, name, id);
 
+            }
+            checkLocalstorage();
+            var modal = document.getElementById("myModal");
+            modal.style.display = "block";
+            
             var counter = 0;
             var i = setInterval(function () {
                 // do your thing
                 var percent = '<div class="container" id="overallProgress"><h3>Loading coins...' + counter + '%</h3><div class="box progress" style="height: 2rem;"><div class="progress-bar progress-bar-striped progress-bar-animated" style="width:' + counter + '%; height: 100%;"></div></div></div>';
-                $('.main-info').html(percent);
+                $('.modal-content').html(percent);
                 counter++;
                 if (counter === 100) {
                     clearInterval(i);
                     $('#overallProgress').empty();
-                    for (let i = 0; i < 100; i++) {
-                        var element = coinsArray[i];
-                        var id = element[0];
-                        var name = element[1];
-                        var symbol = element[2];
-                        createCard(symbol, name, id);
-
-                    }
+                    modal.style.display = "none";
                 }
             }, 20);
+
+
         },
         error: function (error) {
             console.log("error : ", error)
@@ -73,7 +81,7 @@ function moreInfo(getId) {
                     $('#' + getId).attr({
                         onclick: 'clearInfo(this.id)'
                     });
-                    
+
                 },
                 error: function (error) {
                     console.log("error : ", error)
@@ -108,17 +116,73 @@ function createCard(symbol, name, id) {
 function handleSwitch(checkbox, checkedCoin) {
 
     if (checkbox.checked == true) {
-        
+        var counter = localStorage.length;
+        console.log(counter);
+
+        if (counter >= 5) {
+            setSwitchOff(checkedCoin);
+            return;
+        } else {
+            setToLocalstorage(checkedCoin);
+        }
+
+
 
     } else {
-        
+        clearFromLocalstorage(checkedCoin)
     }
 }
 
-function setSwitchOff(id) {
+function setSwitchOn(id) {
     $('#checkbox_' + id).click();
 }
 
+
+function setSwitchOff(getid) {
+
+
+    var counter = 0;
+    var i = setInterval(function () {
+        counter++;
+        if (counter === 1) {
+            clearInterval(i);
+            $('#checkbox_' + getid).click();
+            console.log($('#checkbox_' + getid));
+
+        }
+    }, 100);
+
+
+}
+
+
+function setToLocalstorage(id) {
+
+    window.localStorage.setItem(id, id);
+}
+
+function clearFromLocalstorage(id) {
+    window.localStorage.removeItem(id);
+}
+
+function checkLocalstorage() {
+    if (localStorage.length > 0) {
+
+        var values = [],
+            keys = Object.keys(localStorage),
+            i = keys.length;
+
+        while (i--) {
+            values.push(localStorage.getItem(keys[i]));
+
+        }
+        localStorage.clear();
+        console.log(values);
+        for (let i = 0; i < values.length; i++) {
+            setSwitchOn(values[i]);
+        }
+    }
+}
 
 // Get the modal
 var modal = document.getElementById("myModal");
