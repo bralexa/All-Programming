@@ -34,7 +34,7 @@ function getCoins() {
             var counter = 0;
             var i = setInterval(function () {
                 // do your thing
-                var percent = '<div class="container" id="overallProgress"><h3>Loading coins...' + counter + '%</h3><div class="box progress" style="height: 2rem;"><div class="progress-bar progress-bar-striped progress-bar-animated" style="width:' + counter + '%; height: 100%;"></div></div></div>';
+                var percent = '<div class="container" id="overallProgress"><h3 class="text-center">Loading coins...' + counter + '%</h3><div class="box progress" style="height: 2rem;"><div class="progress-bar progress-bar-striped progress-bar-animated" style="width:' + counter + '%; height: 100%;"></div></div></div>';
                 $('.modal-content').html(percent);
                 counter++;
                 if (counter === 100) {
@@ -187,26 +187,26 @@ function checkLocalstorage() {
 function liveReports() {
     if (localStorage.length == 0) {
         var modal = document.getElementById("myModal");
-        var span = document.getElementsByClassName("close")[0];
+        var span = document.getElementsByClassName("close");
         modal.style.display = "block";
         
-        var message = '<span class="close text-right">&times;</span><div class="container"><h2 class="text-center">No coins choosen!</h2></div > ';
+        var message = '<span class="close text-right" onClick="closeModal()">&times;</span><div class="container"><h2 class="text-center">No coins chosen!</h2></div > ';
         $('.modal-content').html(message);
         window.onclick = function (event) {
             if (event.target == modal) {
                 modal.style.display = "none";
             }
         }
-        span.onclick = function () {
-            modal.style.display = "none";
-        }
+        
         
 
     }
 
 }
 
-
+function closeModal() {
+            modal.style.display = "none";
+        }
 // Get the modal
 var modal = document.getElementById("myModal");
 
