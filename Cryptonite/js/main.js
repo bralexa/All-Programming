@@ -55,14 +55,13 @@ function moreInfo(getId) {
         var percent = '<div class="container"><div class="progress"><div class="progress-bar progress-bar-striped progress - bar - animated" style="width:' + counter + '%;">' + counter + '%</div></div></div>';
         $('#inforow_' + getId).html(percent);
         counter++;
-        if (counter === 99) {
+        if (counter === 100) {
             clearInterval(i);
             $.ajax({
                 type: 'GET',
                 datatype: 'json',
                 url: singe_url,
                 async: false,
-                id: getId,
                 success: function (data) {
                     var image_url = data.image.large;
                     var usd_price = data.market_data.current_price.usd;
@@ -74,7 +73,7 @@ function moreInfo(getId) {
                     $('#' + getId).attr({
                         onclick: 'clearInfo(this.id)'
                     });
-                    setSwitchOff(getId);
+                    
                 },
                 error: function (error) {
                     console.log("error : ", error)
@@ -108,20 +107,16 @@ function createCard(symbol, name, id) {
 
 function handleSwitch(checkbox, checkedCoin) {
 
-    var checkedId = checkedCoin;
-
-
     if (checkbox.checked == true) {
-        modal.style.display = "block";
+        
 
     } else {
-        alert(checkedId);
+        
     }
 }
 
 function setSwitchOff(id) {
-    var checkboxFinder = $('#checkbox_' + id).find('.switch').find('input');
-    checkboxFinder.prop('checked', true);
+    $('#checkbox_' + id).click();
 }
 
 
