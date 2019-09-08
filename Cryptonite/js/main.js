@@ -108,7 +108,7 @@ function createCard(symbol, name, id) {
     string += '</div><div class="custom-control custom-switch"><div class="checkbox checkbox-slider--b-flat checkbox-slider-md">';
     string += '<label><input type="checkbox"  onchange="handleSwitch(this, this.name)" name="' + id + '" id="checkbox_' + id + '"><span></span></label></div></div></div>';
     string += '<div><p class="fullname">' + name + '</p></div><div class="row info" id="inforow_' + id + '"></div>';
-    string += '<button type="button" class="btn btn-outline-secondary" onclick="moreInfo(this.id)" id="' + id + '">More info</button></div>';
+    string += '<button type="button" class="btn btn-outline-secondary box-shaded" onclick="moreInfo(this.id)" id="' + id + '">More info</button></div>';
     $('.for_insert').append(string);
 
 }
@@ -121,6 +121,9 @@ function createMiniCards() {
     $('.modal-content').append(header);
     if (localStorage.length > 0) {
 
+
+
+
         var values = [],
             keys = Object.keys(localStorage),
             i = keys.length;
@@ -130,27 +133,36 @@ function createMiniCards() {
 
         }
 
-        console.log(values);
+        
         for (let i = 0; i < values.length; i++) {
-            createMiniContent(values[i]);
+            for (let j = 0; j < coinsArray.length; j++) {
+                var element = coinsArray[j];
+                if (element[0] === values[i]) {
+                    var symbol = element[1];
+                    var id = element[0];
+
+                }
+            }
+            createMiniContent(id, symbol);
+
         }
     }
 
-    function createMiniContent(id) {
+    function createMiniContent(id, symbol) {
         var string = '<div class="container col-sm-12 box-shaded">';
-        string += '<div class="row d-flex align-items-center justify-content-between"><div class="container col"><h3>' + id + '</h3>';
+        string += '<div class="row d-flex align-items-center justify-content-between"><div class="container col"><p>' + symbol + '</p>';
         string += '</div><div class="custom-control custom-switch"><div class="checkbox checkbox-slider--b-flat checkbox-slider-md">';
         string += '<label><input type="checkbox" checked onchange="handleSwitch(this, this.name)" name="' + id + '" id="minicheckbox_' + id + '"><span></span></label></div></div></div>';
 
         $('.modal-content').append(string);
     }
-    var button = '<button type="button" class="btn btn-outline-secondary" onClick="document.location.reload(true)">Save an close</button></div>';
+    var button = '<div class="container d-flex align-items-center col-sm-12"><button type="button" class="btn btn-outline-secondary box-shaded" onClick="document.location.reload(true)">Save an close</button></div>';
     $('.modal-content').append(button);
     window.onclick = function (event) {
         if (event.target == modal) {
             modal.style.display = "block";
-            closeModal();
-            document.location.reload(true);
+            // closeModal();
+            // document.location.reload(true);
         }
 
     }
