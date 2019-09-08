@@ -113,6 +113,48 @@ function createCard(symbol, name, id) {
 
 }
 
+function createMiniCards() {
+    var modal = document.getElementById("myModal");
+    modal.style.display = "block";
+    
+    var header = '<h3 class="text-center"><strong>Live reports can be produced for 5 coins only.</br>Please review your choices.</strong></h3>';
+    $('.modal-content').append(header);
+    if (localStorage.length > 0) {
+
+        var values = [],
+            keys = Object.keys(localStorage),
+            i = keys.length;
+
+        while (i--) {
+            values.push(localStorage.getItem(keys[i]));
+
+        }
+
+        console.log(values);
+        for (let i = 0; i < values.length; i++) {
+            createMiniContent(values[i]);
+        }
+    }
+    
+    function createMiniContent(id) {
+        var string = '<div class="container col-sm-12 box-shaded">';
+        string += '<div class="row d-flex align-items-center justify-content-between"><div class="container col"><h3>' + id + '</h3>';
+        string += '</div><div class="custom-control custom-switch"><div class="checkbox checkbox-slider--b-flat checkbox-slider-md">';
+        string += '<label><input type="checkbox" checked onchange="handleSwitch(this, this.name)" name="' + id + '" id="minicheckbox_' + id + '"><span></span></label></div></div></div>';
+
+        $('.modal-content').append(string);
+    }
+    var button = '<button type="button" class="btn btn-outline-secondary" onClick="document.location.reload(true)">Save an close</button></div>';
+    $('.modal-content').append(button);
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "block";
+        }
+    }
+
+}
+
+
 function handleSwitch(checkbox, checkedCoin) {
 
     if (checkbox.checked == true) {
@@ -121,6 +163,7 @@ function handleSwitch(checkbox, checkedCoin) {
 
         if (counter >= 5) {
             setSwitchOff(checkedCoin);
+            createMiniCards();
             return;
         } else {
             setToLocalstorage(checkedCoin);
@@ -129,7 +172,7 @@ function handleSwitch(checkbox, checkedCoin) {
 
 
     } else {
-        clearFromLocalstorage(checkedCoin)
+        clearFromLocalstorage(checkedCoin);
     }
 }
 
@@ -189,7 +232,7 @@ function liveReports() {
         var modal = document.getElementById("myModal");
         var span = document.getElementsByClassName("close");
         modal.style.display = "block";
-        
+
         var message = '<span class="close text-right" onClick="closeModal()">&times;</span><div class="container"><h2 class="text-center">No coins chosen!</h2></div > ';
         $('.modal-content').html(message);
         window.onclick = function (event) {
@@ -197,16 +240,16 @@ function liveReports() {
                 modal.style.display = "none";
             }
         }
-        
-        
+
+
 
     }
 
 }
 
 function closeModal() {
-            modal.style.display = "none";
-        }
+    modal.style.display = "none";
+}
 // Get the modal
 var modal = document.getElementById("myModal");
 
