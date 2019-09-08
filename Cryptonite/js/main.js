@@ -116,7 +116,7 @@ function createCard(symbol, name, id) {
 function createMiniCards() {
     var modal = document.getElementById("myModal");
     modal.style.display = "block";
-    
+
     var header = '<h3 class="text-center"><strong>Live reports can be produced for 5 coins only.</br>Please review your choices.</strong></h3>';
     $('.modal-content').append(header);
     if (localStorage.length > 0) {
@@ -135,7 +135,7 @@ function createMiniCards() {
             createMiniContent(values[i]);
         }
     }
-    
+
     function createMiniContent(id) {
         var string = '<div class="container col-sm-12 box-shaded">';
         string += '<div class="row d-flex align-items-center justify-content-between"><div class="container col"><h3>' + id + '</h3>';
@@ -149,7 +149,10 @@ function createMiniCards() {
     window.onclick = function (event) {
         if (event.target == modal) {
             modal.style.display = "block";
+            closeModal();
+            document.location.reload(true);
         }
+
     }
 
 }
@@ -238,7 +241,9 @@ function liveReports() {
         window.onclick = function (event) {
             if (event.target == modal) {
                 modal.style.display = "none";
+                closeModal();
             }
+
         }
 
 
@@ -248,7 +253,9 @@ function liveReports() {
 }
 
 function closeModal() {
+    $('.modal-content').empty();
     modal.style.display = "none";
+
 }
 // Get the modal
 var modal = document.getElementById("myModal");
