@@ -37,7 +37,7 @@ function getCoins() {
                 var percent = '<div class="container" id="overallProgress"><h3 class="text-center">Loading coins...' + counter + '%</h3><div class="box progress" style="height: 2rem;"><div class="progress-bar progress-bar-striped progress-bar-animated" style="width:' + counter + '%; height: 100%;"></div></div></div>';
                 $('.modal-content').html(percent);
                 counter++;
-                if (counter === 100) {
+                if (counter === 101) {
                     clearInterval(i);
                     $('#overallProgress').empty();
                     modal.style.display = "none";
@@ -156,7 +156,7 @@ function createMiniCards() {
 
         $('.modal-content').append(string);
     }
-    var button = '<div class="container d-flex align-items-center col-sm-12"><button type="button" class="btn btn-outline-secondary box-shaded" onClick="document.location.reload(true)">Save an close</button></div>';
+    var button = '<div class="container text-center"><button type="button" class="btn btn-outline-secondary box-shaded" onClick="document.location.reload(true)">Save an close</button></div>';
     $('.modal-content').append(button);
     window.onclick = function (event) {
         if (event.target == modal) {
@@ -169,6 +169,33 @@ function createMiniCards() {
 
 }
 
+function aboutMe() {
+    var modal = document.getElementById("myModal");
+    modal.style.display = "block";
+
+    var header = '<h3 class="text-center"><strong>Alexander Bruder</strong></h3>';
+    $('.modal-content').append(header);
+    createMiniContent()
+
+    function createMiniContent() {
+        var string = '<div class="container col-sm-12 box-shaded">';
+        string += '<div class="container col text-center"><img class="box-shaded img-fluid" src="img/Me.jpg"></div><div class="container text-center"><h3>Full Stack Developer</h3></div>';
+        string += '<div class="container text-center"><p><strong>Contacts:</strong></p></div><div class="container text-center"><p>Mobile: <a href="tel:+972548887511">+972548887511</a></p></div><div class="container text-center"><p>E-mail: <a href="mailto:nive.bald.man@gmail.com">nice.bald.man@gmail.com</a></p></div>';
+
+        $('.modal-content').append(string);
+    }
+    var button = '<div class="container text-center"><button type="button" class="btn btn-outline-secondary box-shaded" onClick="closeModal()">Close</button></div>';
+    $('.modal-content').append(button);
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "block";
+            // closeModal();
+            // document.location.reload(true);
+        }
+
+    }
+
+}
 
 function handleSwitch(checkbox, checkedCoin) {
 
