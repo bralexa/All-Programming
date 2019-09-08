@@ -76,7 +76,7 @@ function moreInfo(getId) {
                     var usd_price = data.market_data.current_price.usd;
                     var eur_price = data.market_data.current_price.eur;
                     var ils_price = data.market_data.current_price.ils;
-                    string = '<div class="container col"><img src = "' + image_url + '" alt = "" class="logo-img" ></div><div class="container col moreinfo"><p>' + eur_price + '<strong> €</strong></p><p>' + usd_price + '<strong> $</strong></p><p>' + ils_price + '<strong> ₪</strong></p></div>'
+                    string = '<div class="container col d-flex align-items-center justify-content-between><div class="container col"><img src = "' + image_url + '" class="logo-img" ></div><div class="container col moreinfo text-center"><p>' + eur_price + '<strong> €</strong></p><p>' + usd_price + '<strong> $</strong></p><p>' + ils_price + '<strong> ₪</strong></p></div></div>'
                     $('#inforow_' + getId).html(string);
                     $('#' + getId).text('Close');
                     $('#' + getId).attr({
