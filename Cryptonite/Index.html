@@ -32,14 +32,19 @@
             </div>
             <div class="container col-sm-6 d-flex align-items-center justify-content-between">
                 <input type="text" id="searchInput" class="form-control box-shaded" placeholder="Find your favorite coin">
-                <button type="button" class="btn btn-outline-secondary box-shaded">Search!</button>
+                <button type="button" class="btn btn-outline-secondary box-shaded" onclick="coinSearcher()">Search!</button>
             </div>
         </div>
     </div>
 
     <div class="parallax">
         <div class="parallax__group">
-            <div class="parallax__layer parallax__layer--back" style="background-image: url(img/back-coins.png)"></div>
+            <div class="parallax__layer parallax__layer--back">
+            <div class="container">
+                <img class="img-fluid" src="img/Back-Coins.png">
+            </div>
+        
+            </div>
             <div class="parallax__layer parallax__layer--base">
                 <section class="main">
                     <!-- Trigger/Open The Modal -->
@@ -48,6 +53,7 @@
                     <div class="main-info"></div>
                     <div class="container">
                         <div class="row for_insert" id="for_insert"></div>
+                        
                     </div>
                 </section>
             </div>
@@ -60,11 +66,8 @@
     <div id="myModal" class="modal">
     
         <!-- Modal content -->
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <div class="container"></div>
-            <p>Some text in the Modal..</p>
-        </div>
+        <div class="container modal-content"></div>
+        
     
     </div>
 
@@ -72,6 +75,7 @@
     <script src="js/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="js/main.js"></script>
     <script src="js/popper.min.js"></script>
+    <script src="js/jquery.canvasjs.min.js"></script>
     
 
 

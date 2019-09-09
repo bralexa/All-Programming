@@ -1,27 +1,35 @@
 const all_coins_url = 'https://api.coingecko.com/api/v3/coins/list';
-const single_coin_url = 'https://api.coingecko.com/api/v3/coins/'
+const single_coin_url = 'https://api.coingecko.com/api/v3/coins/';
+const multyCoinsURL = 'https://min-api.cryptocompare.com/data/pricemulti?fsyms=';
+const apiKey = '&tsyms=USD&api_key=5eb33644f883867df9a7bbfa198466834a89e30b0f477d87a36e5d8e7b481d42';
+var coinsForLive = [];
+
+var viewArray = [];
 var coinsArray = [];
 getCoins();
-// Get the modal
-var modal = document.getElementById("myModal");
 
 
 
 
 function getCoins() {
 
-
+    var coinsArrayForView = [];
     $.ajax({
         type: 'GET',
         datatype: 'json',
         url: all_coins_url,
         async: false,
         success: function (data) {
-            coins = data.splice(2000, 100);
-            coins.forEach((value) => { coinsArray.push([value.id, value.name, value.symbol]) });
+            data.forEach((value) => { coinsArray.push([value.id, value.name, value.symbol]) });
+
+
+            coins = data.splice(500, 100);
+            coins.forEach((value) => { viewArray.push([value.id, value.name, value.symbol]) });
+
+
             // window.localStorage.coinsList = JSON.stringify(coins);
             for (let i = 0; i < 100; i++) {
-                var element = coinsArray[i];
+                var element = viewArray[i];
                 var id = element[0];
                 var name = element[1];
                 var symbol = element[2];
@@ -104,8 +112,8 @@ function clearInfo(id) {
 }
 
 function createCard(symbol, name, id) {
-    var string = '<div class="container col-sm-4 box-shaded" id="container_' + symbol + '">';
-    string += '<div class="row justify-content-between"><div class="container col"><h2>' + symbol + '</h2>';
+    var string = '<div class="container col-sm-4 box-shaded" name="' + id + '" id="container_' + symbol + '">';
+    string += '<div class="row justify-content-between name="' + id + '"><div class="container col"><h2>' + symbol + '</h2>';
     string += '</div><div class="custom-control custom-switch"><div class="checkbox checkbox-slider--b-flat checkbox-slider-md">';
     string += '<label><input type="checkbox"  onchange="handleSwitch(this, this.name)" name="' + id + '" id="checkbox_' + id + '"><span></span></label></div></div></div>';
     string += '<div><p class="fullname">' + name + '</p></div><div class="row info" id="inforow_' + id + '"></div>';
@@ -202,7 +210,7 @@ function handleSwitch(checkbox, checkedCoin) {
 
     if (checkbox.checked == true) {
         var counter = localStorage.length;
-        console.log(counter);
+
 
         if (counter >= 5) {
             setSwitchOff(checkedCoin);
@@ -215,6 +223,7 @@ function handleSwitch(checkbox, checkedCoin) {
 
 
     } else {
+        
         clearFromLocalstorage(checkedCoin);
     }
 }
@@ -233,7 +242,7 @@ function setSwitchOff(getid) {
         if (counter === 1) {
             clearInterval(i);
             $('#checkbox_' + getid).click();
-            console.log($('#checkbox_' + getid));
+
 
         }
     }, 100);
@@ -263,8 +272,9 @@ function checkLocalstorage() {
 
         }
         localStorage.clear();
-        console.log(values);
+
         for (let i = 0; i < values.length; i++) {
+            
             setSwitchOn(values[i]);
         }
     }
@@ -285,14 +295,85 @@ function liveReports() {
             }
 
         }
+    } else {
+        // var modal = document.getElementById("myModal");
+        // modal.style.display = "block";
+        // $(".modal-content").addClass('modal-lg');
+        chartCoins();
+        // window.onclick = function (event) {
+        //     if (event.target == modal) {
+        //         modal.style.display = "none";
+        //         closeModal();
+        //     }
+
+        // }
     }
 
 }
 
 function closeModal() {
+    var modal = document.getElementById("myModal");
     $('.modal-content').empty();
     modal.style.display = "none";
 
+}
+
+function coinSearcher() {
+    var counter = 0;
+    let value = $("#searchInput").val().toLowerCase();
+
+    if (value == '') {
+        document.location.reload(true);
+        return;
+    } else {
+        for (let j = 0; j < coinsArray.length; j++) {
+            var element = coinsArray[j];
+            if (element[0].toLowerCase() == value || element[1].toLowerCase() == value || element[2].toLowerCase() == value) {
+                var id = element[0];
+                var name = element[1];
+                var symbol = element[2];
+                $('.for_insert').empty();
+                createCard(symbol, name, id);
+                checkLocalstorage();
+                counter++;
+
+            } else {
+
+            }
+        }
+    }
+    if (counter == 0) {
+        var modal = document.getElementById("myModal");
+        var span = document.getElementsByClassName("close");
+        modal.style.display = "block";
+
+        var message = '<span class="close text-right" onClick="closeModal()">&times;</span><div class="container"><h2 class="text-center">Sorry, your search is no results!</h2></div > ';
+        $('.modal-content').html(message);
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+                closeModal();
+            }
+
+        }
+    }
+
+
+
+
+
+
+
+
+    // $(".for_insert").filter(function () {
+    // $(this).toggle($('.container').text().toLowerCase().indexOf(value) == -1);
+    // });
+
+    // $("body").filter(function () {
+    //     $(this).toggle($('container[name*=]').toLowerCase().indexOf(value) > -1);
+    // });
+
+    // $(this).toggle($(this).attr('data-symbol')
 }
 
 
@@ -318,3 +399,189 @@ function closeModal() {
 //         modal.style.display = "none";
 //     }
 // }
+
+
+
+//chart
+
+function chartCoins() {
+
+    keys = Object.keys(localStorage),
+        i = keys.length;
+
+    while (i--) {
+        coinsForLive.push(localStorage.getItem(keys[i]));
+
+    }
+
+
+    
+
+    for (let i = 0; i < coinsForLive.length; i++) {
+        var value = coinsForLive[i];
+        for (let j = 0; j < coinsArray.length; j++) {
+            var element = coinsArray[j];
+            if (element[0].toLowerCase() == value.toLowerCase() || element[1].toLowerCase() == value.toLowerCase() || element[2].toLowerCase() == value.toLowerCase()) {
+
+                var symbol = element[2];
+                coinsForLive.splice(i, 1, symbol)
+
+
+            }
+        }
+
+    }
+
+
+
+
+    
+    
+    var tempURL = multyCoinsURL + coinsForLive.toString().toUpperCase() + apiKey;
+
+    var data = {
+        type: "spline",
+        name: '',
+        showInLegend: true,
+        xValueFormatString: "sec hours",
+        yValueFormatString: "$#,##0.#",
+
+        dataPoints: []
+
+
+    }
+
+
+    var options = {
+        exportEnabled: true,
+        animationEnabled: true,
+        title: {
+            text: "Online Chart"
+        },
+        subtitles: [{
+            // text: "Click Legend to Hide or Unhide Data Series"
+        }],
+        axisX: {
+            title: "Date and time"
+        },
+        axisY: {
+            title: "Price in USD",
+            titleFontColor: "#4F81BC",
+            lineColor: "#4F81BC",
+            labelFontColor: "#4F81BC",
+            tickColor: "#4F81BC",
+            includeZero: false
+        },
+
+        toolTip: {
+            shared: true
+        },
+        legend: {
+            cursor: "pointer",
+            itemclick: toggleDataSeries
+        },
+        data: [{
+            type: "spline",
+            name: [],
+            showInLegend: true,
+            xValueFormatString: "sec hours",
+            yValueFormatString: "$#,##0.#",
+
+            dataPoints: []
+
+        },
+        {
+                type: "spline",
+                name: [],
+                showInLegend: true,
+                xValueFormatString: "sec hours",
+                yValueFormatString: "$#,##0.#",
+
+                dataPoints: []
+
+            },
+            {
+                type: "spline",
+                name: [],
+                showInLegend: true,
+                xValueFormatString: "sec hours",
+                yValueFormatString: "$#,##0.#",
+
+                dataPoints: []
+
+            },
+            {
+                type: "spline",
+                name: [],
+                showInLegend: true,
+                xValueFormatString: "sec hours",
+                yValueFormatString: "$#,##0.#",
+
+                dataPoints: []
+
+            },
+            {
+                type: "spline",
+                name: [],
+                showInLegend: true,
+                xValueFormatString: "sec hours",
+                yValueFormatString: "$#,##0.#",
+
+                dataPoints: []
+
+            }
+
+        ]
+    };
+
+    $(".for_insert").CanvasJSChart(options);
+    var chart = $(".for_insert").CanvasJSChart();
+    var i = setInterval(() => {
+        $.getJSON(tempURL, (res) => {
+            console.log(res);
+
+            for (let i = 0; i < coinsForLive.length; i++) {
+                console.log(res[coinsForLive[i].toUpperCase()]);
+                // options.data.new(data);
+                options.data[i].name = coinsForLive[i];
+
+                options.data[i].dataPoints.push({
+                    y: res[coinsForLive[i].toUpperCase()].USD,
+                    x: new Date()
+                })
+            }
+
+
+            chart.render();
+        });
+    }, 2000)
+    // var i = setInterval(function () {
+    //     // do your thing
+    //     options.data[0].dataPoints.push({
+    //         x: new Date(),
+    //         y: counter
+    //     });
+    //     counter++;
+    //     if (counter === 101) {
+    //         clearInterval(i);
+    //     }
+    //     chart.render();
+    // }, 2000);
+
+    function toggleDataSeries(e) {
+        if (typeof (e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
+            e.dataSeries.visible = false;
+        } else {
+            e.dataSeries.visible = true;
+        }
+        e.chart.render();
+    }
+
+
+
+
+
+
+
+
+}
