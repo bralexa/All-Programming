@@ -59,7 +59,7 @@ function getCoins() {
 
         },
         error: function (error) {
-            console.log("error : ", error)
+            console.log("error : ", error);
         },
         complete: function () {
 
@@ -96,7 +96,7 @@ function moreInfo(getId) {
 
                 },
                 error: function (error) {
-                    console.log("error : ", error)
+                    console.log("error : ", error);
                 },
                 complete: function () {
 
@@ -220,9 +220,6 @@ function handleSwitch(checkbox, checkedCoin) {
 
     if (checkbox.checked == true) {
         var counter = localStorage.length + 1;
-        console.log(counter);
-
-
         if (counter > 5) {
             setSwitchOff(checkedCoin);
             createMiniCards();
@@ -318,17 +315,9 @@ function liveReports() {
 
         }
     } else {
-        // var modal = document.getElementById("myModal");
-        // modal.style.display = "block";
-        // $(".modal-content").addClass('modal-lg');
-        chartCoins();
-        // window.onclick = function (event) {
-        //     if (event.target == modal) {
-        //         modal.style.display = "none";
-        //         closeModal();
-        //     }
 
-        // }
+        chartCoins();
+
     }
 
 }
@@ -484,7 +473,7 @@ function chartCoins() {
             text: "Online Chart"
         },
         subtitles: [{
-            // text: "Click Legend to Hide or Unhide Data Series"
+            text: "Only coins with live data enabled will be shown"
         }],
         axisX: {
             title: "Date and time"
@@ -567,25 +556,23 @@ function chartCoins() {
 
 
                 for (let j = 0; j < coinsForLive.length; j++) {
+                    if (res[coinsForLive[j].toUpperCase()] != undefined) {
+                        options.data[j].name = coinsForLive[j];
 
-                    // options.data.new(data);
-                    options.data[j].name = coinsForLive[j];
+                        options.data[j].dataPoints.push({
+                            y: res[coinsForLive[j].toUpperCase()].USD,
+                            x: new Date()
+                        });
+                    }
+                   
 
-                    options.data[j].dataPoints.push({
-                        y: res[coinsForLive[j].toUpperCase()].USD,
-                        x: new Date()
-                    })
                 }
-                console.log(coinsForLive);
-
-
                 chart.render();
             });
-        }, 2000)// array empty or does not exist
+        }, 2000);
     }
 
     $(".mybutton").on("click", function () {
-        console.log($(this).text());
         clearTimeout(i);
     });
 
