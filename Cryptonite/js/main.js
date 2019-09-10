@@ -88,9 +88,9 @@ function moreInfo(getId) {
                     var usd_price = data.market_data.current_price.usd;
                     var eur_price = data.market_data.current_price.eur;
                     var ils_price = data.market_data.current_price.ils;
-                    string = '<div class="container col d-flex align-items-center justify-content-between><div class="container col"><img src = "' + image_url + '" class="logo-img" ></div><div class="container col moreinfo text-center"><p><strong>Price:</strong></p><h3>' + eur_price + '<strong> €</strong></h3><h3>' + usd_price + '<strong> $</strong></h3><h3>' + ils_price + '<strong> ₪</strong></h3></div></div>'
+                    string = '<div class="container box-shaded col d-flex align-items-center justify-content-between><div class="container col"><img src = "' + image_url + '" class="logo-img" ></div><div class="container box-shaded col moreinfo text-center"><p><strong>Price:</strong></p><h5>' + eur_price + '<strong> €</strong></h5><h5>' + usd_price + '<strong> $</strong></h5><h5>' + ils_price + '<strong> ₪</strong></h5></div></div>'
                     $('#inforow_' + getId).html(string);
-                    $('#' + getId).text('Close');
+                    $('#' + getId).text('Close info');
                     $('#' + getId).attr({
                         onclick: 'clearInfo(this.id)'
                     });
@@ -121,7 +121,7 @@ function createCard(symbol, name, id) {
     string += '</div><div class="custom-control custom-switch"><div class="checkbox checkbox-slider--b-flat checkbox-slider-md">';
     string += '<label><input type="checkbox"  onchange="handleSwitch(this, this.name)" name="' + id + '" id="checkbox_' + id + '"><span></span></label></div></div></div>';
     string += '<div><p class="fullname">' + name + '</p></div><div class="row info" id="inforow_' + id + '"></div>';
-    string += '<button type="button" class="btn btn-outline-secondary box-shaded" onclick="moreInfo(this.id)" id="' + id + '">More info</button></div>';
+    string += '<div class="container text-center"><button type="button" class="btn btn-outline-secondary box-shaded" onclick="moreInfo(this.id)" id="' + id + '">More info</button></div></div>';
     $('.for_insert').append(string);
 
 }
@@ -135,7 +135,7 @@ function createSearchCard(symbol, name, id) {
     string += '</div><div class="custom-control custom-switch"><div class="checkbox checkbox-slider--b-flat checkbox-slider-md">';
     string += '<label><input type="checkbox"  onchange="handleSwitch(this, this.name)" name="' + id + '" id="checkbox_' + id + '"><span></span></label></div></div></div>';
     string += '<div><p class="fullname">' + name + '</p></div><div class="row info" id="inforow_' + id + '"></div>';
-    string += '<button type="button" class="btn btn-outline-secondary box-shaded" onclick="moreInfo(this.id)" id="' + id + '">More info</button></div>';
+    string += '<div class="container text-center"><button type="button" class="btn btn-outline-secondary box-shaded" onclick="moreInfo(this.id)" id="' + id + '">More info</button></div></div>';
     $('.modal-content').empty();
     $('.modal-content').append(string);
     window.onclick = function (event) {
@@ -458,7 +458,7 @@ function coinSearcher() {
 
 function chartCoins() {
     var coinsForLive = [];
-
+    var coinsNamesForChart = [];
     keys = Object.keys(localStorage),
         i = keys.length;
 
@@ -475,9 +475,10 @@ function chartCoins() {
         for (let j = 0; j < coinsArray.length; j++) {
             var element = coinsArray[j];
             if (element[0].toLowerCase() == value.toLowerCase() || element[1].toLowerCase() == value.toLowerCase() || element[2].toLowerCase() == value.toLowerCase()) {
-
+                var name = element[1];
                 var symbol = element[2];
-                coinsForLive.splice(i, 1, symbol)
+                coinsForLive.splice(i, 1, symbol);
+                coinsNamesForChart.push(name);
 
 
             }
@@ -485,7 +486,9 @@ function chartCoins() {
 
     }
 
-
+    console.log(coinsForLive);
+    console.log(coinsNamesForChart);
+    
 
 
 
@@ -586,7 +589,7 @@ function chartCoins() {
 
                 for (let j = 0; j < coinsForLive.length; j++) {
                     if (res[coinsForLive[j].toUpperCase()] != undefined) {
-                        options.data[j].name = coinsForLive[j];
+                        options.data[j].name = coinsNamesForChart[j];
 
                         options.data[j].dataPoints.push({
                             y: res[coinsForLive[j].toUpperCase()].USD,
