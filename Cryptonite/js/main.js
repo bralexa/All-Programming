@@ -88,7 +88,7 @@ function moreInfo(getId) {
                     var usd_price = data.market_data.current_price.usd;
                     var eur_price = data.market_data.current_price.eur;
                     var ils_price = data.market_data.current_price.ils;
-                    string = '<div class="container col d-flex align-items-center justify-content-between><div class="container col"><img src = "' + image_url + '" class="logo-img" ></div><div class="container col moreinfo text-center"><p><strong>Price:</strong></p><p>' + eur_price + '<strong> €</strong></p><p>' + usd_price + '<strong> $</strong></p><p>' + ils_price + '<strong> ₪</strong></p></div></div>'
+                    string = '<div class="container col d-flex align-items-center justify-content-between><div class="container col"><img src = "' + image_url + '" class="logo-img" ></div><div class="container col moreinfo text-center"><p><strong>Price:</strong></p><h3>' + eur_price + '<strong> €</strong></h3><h3>' + usd_price + '<strong> $</strong></h3><h3>' + ils_price + '<strong> ₪</strong></h3></div></div>'
                     $('#inforow_' + getId).html(string);
                     $('#' + getId).text('Close');
                     $('#' + getId).attr({
@@ -130,7 +130,7 @@ function createSearchCard(symbol, name, id) {
     var modal = document.getElementById("myModal");
     var span = document.getElementsByClassName("close");
     modal.style.display = "block";
-    var string = '<span class="close text-right" onClick="closeModal()">&times;</span><div class="container col-sm-6 box-shaded" name="' + id + '" id="container_' + symbol + '">';
+    var string = '<span class="close text-right" onClick="closeModal()">&times;</span><div class="container col-sm-8 box-shaded" name="' + id + '" id="container_' + symbol + '">';
     string += '<div class="row justify-content-between name="' + id + '"><div class="container col"><h2>' + symbol + '</h2>';
     string += '</div><div class="custom-control custom-switch"><div class="checkbox checkbox-slider--b-flat checkbox-slider-md">';
     string += '<label><input type="checkbox"  onchange="handleSwitch(this, this.name)" name="' + id + '" id="checkbox_' + id + '"><span></span></label></div></div></div>';
@@ -157,7 +157,7 @@ function createMiniCards() {
     var modal = document.getElementById("myModal");
     modal.style.display = "block";
 
-    var header = '<h3 class="text-center"><strong>Live reports can be produced for 5 coins only.</br>Please review your choices.</strong></h3>';
+    var header = '<h4 class="text-center"><strong>Live reports can be produced for&nbsp;5&nbsp;coins&nbsp;only.</br>Please review your choices.</strong></h4>';
     $('.modal-content').append(header);
     if (localStorage.length > 0) {
 
