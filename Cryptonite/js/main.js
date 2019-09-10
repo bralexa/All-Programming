@@ -25,11 +25,6 @@ function getCoins() {
 
             coins = data.splice(500, 100);
             coins.forEach((value) => { viewArray.push([value.id, value.name, value.symbol]) });
-
-
-            // window.localStorage.coinsList = JSON.stringify(coins);
-
-
             var modal = document.getElementById("myModal");
             modal.style.display = "block";
 
@@ -43,8 +38,6 @@ function getCoins() {
                     clearInterval(i);
                     $('#overallProgress').empty();
                     modal.style.display = "none";
-
-
                 }
             }, 20);
             for (let i = 0; i < 100; i++) {
@@ -55,8 +48,6 @@ function getCoins() {
                 createCard(symbol, name, id);
 
             }
-
-
         },
         error: function (error) {
             console.log("error : ", error);
@@ -127,43 +118,24 @@ function createCard(symbol, name, id) {
 }
 
 function createSearchCard(symbol, name, id) {
-    // var modal = document.getElementById("myModal");
-    // var span = document.getElementsByClassName("close");
-    // modal.style.display = "block";
+
     var string = '<div class="card col-sm-4 box-shaded" name="' + id + '" id="container_' + symbol + '">';
     string += '<div class="row justify-content-between name="' + id + '"><div class="container col"><h2>' + symbol + '</h2>';
     string += '</div><div class="custom-control custom-switch"><div class="checkbox checkbox-slider--b-flat checkbox-slider-md">';
     string += '<label><input type="checkbox"  onchange="handleSwitch(this, this.name)" name="' + id + '" id="checkbox_' + id + '"><span></span></label></div></div></div>';
     string += '<div><p class="fullname">' + name + '</p></div><div class="row info" id="inforow_' + id + '"></div>';
     string += '<div class="container text-center"><button type="button" class="btn btn-outline-secondary box-shaded" onclick="moreInfo(this.id)" id="' + id + '">More info</button></div></div>';
-    $('.modal-content').empty();
     $('.for_insert').append(string);
-    // window.onclick = function (event) {
-    //     if (event.target == modal) {
-    //         modal.style.display = "block";
-    //     }
 
-    // }
-    // span.onclick = function (event) {
-    //     if (event.target == modal) {
-    //         closeModal();
-    //     }
-
-    // }
 }
 
 
 function createMiniCards() {
     var modal = document.getElementById("myModal");
     modal.style.display = "block";
-
     var header = '<h4 class="text-center"><strong>Live reports can be produced for&nbsp;5&nbsp;coins&nbsp;only.</br>Please review your choices.</strong></h4>';
     $('.modal-content').append(header);
     if (localStorage.length > 0) {
-
-
-
-
         var values = [],
             keys = Object.keys(localStorage),
             i = keys.length;
@@ -172,7 +144,6 @@ function createMiniCards() {
             values.push(localStorage.getItem(keys[i]));
 
         }
-
 
         for (let i = 0; i < values.length; i++) {
             for (let j = 0; j < coinsArray.length; j++) {
@@ -201,11 +172,10 @@ function createMiniCards() {
     window.onclick = function (event) {
         if (event.target == modal) {
             modal.style.display = "block";
-            // closeModal();
-            // document.location.reload(true);
+
         }
 
-    }
+    };
 
 }
 
@@ -315,12 +285,7 @@ function checkLocalstorage() {
             $('#checkbox_' + (localStorage.getItem(keys[i]))).attr({ checked: true }); //values.push
 
         }
-        // localStorage.clear();
 
-        // for (let i = 0; i < values.length; i++) {
-
-        //     setSwitchOn(values[i]);
-        // }
     }
 }
 
@@ -338,7 +303,7 @@ function liveReports() {
                 closeModal();
             }
 
-        }
+        };
     } else {
 
         chartCoins();
@@ -371,7 +336,7 @@ function coinSearcher() {
                 closeModal();
             }
 
-        }
+        };
         return;
     } else {
         for (let j = 0; j < coinsArray.length; j++) {
@@ -384,8 +349,6 @@ function coinSearcher() {
                 createSearchCard(symbol, name, id);
                 checkLocalstorage();
                 counter++;
-
-            } else {
 
             }
         }
@@ -403,52 +366,9 @@ function coinSearcher() {
                 closeModal();
             }
 
-        }
+        };
     }
-
-
-
-
-
-
-
-
-    // $(".for_insert").filter(function () {
-    // $(this).toggle($('.container').text().toLowerCase().indexOf(value) == -1);
-    // });
-
-    // $("body").filter(function () {
-    //     $(this).toggle($('container[name*=]').toLowerCase().indexOf(value) > -1);
-    // });
-
-    // $(this).toggle($(this).attr('data-symbol')
 }
-
-
-// Get the button that opens the modal
-// var btn = document.getElementById("myBtn");
-
-// Get the <span> element that closes the modal
-// var span = document.getElementsByClassName("close")[0];
-
-// When the user clicks on the button, open the modal 
-// btn.onclick = function () {
-//     modal.style.display = "block";
-// }
-
-// When the user clicks on <span> (x), close the modal
-// span.onclick = function () {
-//     modal.style.display = "none";
-// }
-
-// When the user clicks anywhere outside of the modal, close it
-// window.onclick = function (event) {
-//     if (event.target == modal) {
-//         modal.style.display = "none";
-//     }
-// }
-
-
 
 //chart
 
@@ -462,10 +382,6 @@ function chartCoins() {
         coinsForLive.push(localStorage.getItem(keys[i]));
 
     }
-
-
-
-
     for (let i = 0; i < coinsForLive.length; i++) {
         var value = coinsForLive[i];
         for (let j = 0; j < coinsArray.length; j++) {
@@ -481,19 +397,7 @@ function chartCoins() {
         }
 
     }
-
-    console.log(coinsForLive);
-    console.log(coinsNamesForChart);
-
-
-
-
-
     var tempURL = multyCoinsURL + coinsForLive.toString().toUpperCase() + apiKey;
-
-
-
-
     var options = {
         exportEnabled: true,
         animationEnabled: true,
@@ -603,21 +507,6 @@ function chartCoins() {
     $(".mybutton").on("click", function () {
         clearTimeout(i);
     });
-
-
-    // var i = setInterval(function () {
-    //     // do your thing
-    //     options.data[0].dataPoints.push({
-    //         x: new Date(),
-    //         y: counter
-    //     });
-    //     counter++;
-    //     if (counter === 101) {
-    //         clearInterval(i);
-    //     }
-    //     chart.render();
-    // }, 2000);
-
     function toggleDataSeries(e) {
         if (typeof (e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
             e.dataSeries.visible = false;
@@ -626,12 +515,4 @@ function chartCoins() {
         }
         e.chart.render();
     }
-
-
-
-
-
-
-
-
 }
