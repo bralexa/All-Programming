@@ -228,10 +228,10 @@ body {
 
 /* Modal Content/Box */
 .modal-content {
-  background-color: #fefefe;
+  background-color: #fefefef0;
   margin: 5% auto;
   padding: 1%;
-  border: 1px solid #888;
+  border: 2px solid #888;
   width: 80%;
 }
 

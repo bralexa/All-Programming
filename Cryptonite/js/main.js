@@ -55,7 +55,7 @@ function getCoins() {
                 createCard(symbol, name, id);
 
             }
-            
+
 
         },
         error: function (error) {
@@ -65,7 +65,7 @@ function getCoins() {
 
         }
     });
-    
+
 }
 
 function moreInfo(getId) {
@@ -127,29 +127,29 @@ function createCard(symbol, name, id) {
 }
 
 function createSearchCard(symbol, name, id) {
-    var modal = document.getElementById("myModal");
-    var span = document.getElementsByClassName("close");
-    modal.style.display = "block";
-    var string = '<span class="close text-right" onClick="closeModal()">&times;</span><div class="card col-sm-8 box-shaded" name="' + id + '" id="container_' + symbol + '">';
+    // var modal = document.getElementById("myModal");
+    // var span = document.getElementsByClassName("close");
+    // modal.style.display = "block";
+    var string = '<div class="card col-sm-4 box-shaded" name="' + id + '" id="container_' + symbol + '">';
     string += '<div class="row justify-content-between name="' + id + '"><div class="container col"><h2>' + symbol + '</h2>';
     string += '</div><div class="custom-control custom-switch"><div class="checkbox checkbox-slider--b-flat checkbox-slider-md">';
     string += '<label><input type="checkbox"  onchange="handleSwitch(this, this.name)" name="' + id + '" id="checkbox_' + id + '"><span></span></label></div></div></div>';
     string += '<div><p class="fullname">' + name + '</p></div><div class="row info" id="inforow_' + id + '"></div>';
     string += '<div class="container text-center"><button type="button" class="btn btn-outline-secondary box-shaded" onclick="moreInfo(this.id)" id="' + id + '">More info</button></div></div>';
     $('.modal-content').empty();
-    $('.modal-content').append(string);
-    window.onclick = function (event) {
-        if (event.target == modal) {
-            modal.style.display = "block";
-        }
+    $('.for_insert').append(string);
+    // window.onclick = function (event) {
+    //     if (event.target == modal) {
+    //         modal.style.display = "block";
+    //     }
 
-    }
-    span.onclick = function (event) {
-        if (event.target == modal) {
-            closeModal();
-        }
+    // }
+    // span.onclick = function (event) {
+    //     if (event.target == modal) {
+    //         closeModal();
+    //     }
 
-    }
+    // }
 }
 
 
@@ -189,7 +189,7 @@ function createMiniCards() {
     }
 
     function createMiniContent(id, symbol) {
-        var string = '<div class="container col-sm-12 box-shaded">';
+        var string = '<div class="card col-sm-12 box-shaded">';
         string += '<div class="row d-flex align-items-center justify-content-between"><div class="container col"><p>' + symbol + '</p>';
         string += '</div><div class="custom-control custom-switch"><div class="checkbox checkbox-slider--b-flat checkbox-slider-md">';
         string += '<label><input type="checkbox" checked onchange="handleSwitch(this, this.name)" name="' + id + '" id="minicheckbox_' + id + '"><span></span></label></div></div></div>';
@@ -220,27 +220,23 @@ function aboutMe() {
     var modal = document.getElementById("myModal");
     modal.style.display = "block";
 
-    var header = '<h3 class="text-center"><strong>Alexander Bruder</strong></h3>';
-    $('.modal-content').append(header);
-    createMiniContent()
 
-    function createMiniContent() {
-        var string = '<div class="container col-sm-12 box-shaded">';
-        string += '<div class="container col text-center"><img class="box-shaded img-fluid" src="img/Me.jpg"></div><div class="container text-center"><h3>Full Stack Developer</h3></div>';
-        string += '<div class="container text-center"><p><strong>Contacts:</strong></p></div><div class="container text-center"><p>Mobile: <a href="tel:+972548887511">+972548887511</a></p></div><div class="container text-center"><p>E-mail: <a href="mailto:nive.bald.man@gmail.com">nice.bald.man@gmail.com</a></p></div>';
+    var string = '<div class="container col box-shaded"><h3 class="text-center"><strong>Alexander Bruder</strong></h3>';
+    string += '<div class="container col text-center"><img class="box-shaded img-fluid" src="img/Me.jpg"></div><div class="container text-center"><h3>Full Stack Developer</h3></div>';
+    string += '<div class="container text-center"><p><strong>Contacts:</strong></p></div><div class="container text-center"><p>Mobile: <a href="tel:+972548887511">+972548887511</a></p></div><div class="container text-center"><p>E-mail: <a href="mailto:nive.bald.man@gmail.com">nice.bald.man@gmail.com</a></p></div>';
+    $('.modal-content').empty();
+    $('.modal-content').append(string);
 
-        $('.modal-content').append(string);
-    }
     var button = '<div class="container text-center"><button type="button" class="btn btn-outline-secondary box-shaded" onClick="closeModal()">Close</button></div>';
+
     $('.modal-content').append(button);
     window.onclick = function (event) {
         if (event.target == modal) {
             modal.style.display = "block";
-            // closeModal();
-            // document.location.reload(true);
+
         }
 
-    }
+    };
 
 }
 
@@ -311,12 +307,12 @@ function clearFromLocalstorage(id) {
 function checkLocalstorage() {
     if (localStorage.length > 0) {
 
-        
-            keys = Object.keys(localStorage),
+
+        keys = Object.keys(localStorage),
             i = keys.length;
 
         while (i--) {
-            $('#checkbox_'+(localStorage.getItem(keys[i]))).attr({checked:true} ); //values.push
+            $('#checkbox_' + (localStorage.getItem(keys[i]))).attr({ checked: true }); //values.push
 
         }
         // localStorage.clear();
@@ -488,7 +484,7 @@ function chartCoins() {
 
     console.log(coinsForLive);
     console.log(coinsNamesForChart);
-    
+
 
 
 
@@ -596,7 +592,7 @@ function chartCoins() {
                             x: new Date()
                         });
                     }
-                   
+
 
                 }
                 chart.render();
