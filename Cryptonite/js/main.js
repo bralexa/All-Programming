@@ -12,8 +12,8 @@ getCoins();
 
 
 function getCoins() {
+    $('.for_insert').empty();
 
-    var coinsArrayForView = [];
     $.ajax({
         type: 'GET',
         datatype: 'json',
@@ -28,15 +28,8 @@ function getCoins() {
 
 
             // window.localStorage.coinsList = JSON.stringify(coins);
-            for (let i = 0; i < 100; i++) {
-                var element = viewArray[i];
-                var id = element[0];
-                var name = element[1];
-                var symbol = element[2];
-                createCard(symbol, name, id);
 
-            }
-            checkLocalstorage();
+
             var modal = document.getElementById("myModal");
             modal.style.display = "block";
 
@@ -46,13 +39,23 @@ function getCoins() {
                 var percent = '<div class="container" id="overallProgress"><h3 class="text-center">Loading coins...' + counter + '%</h3><div class="box progress" style="height: 2rem;"><div class="progress-bar progress-bar-striped progress-bar-animated" style="width:' + counter + '%; height: 100%;"></div></div></div>';
                 $('.modal-content').html(percent);
                 counter++;
-                if (counter === 101) {
+                if (counter === 100) {
                     clearInterval(i);
                     $('#overallProgress').empty();
                     modal.style.display = "none";
+
+
                 }
             }, 20);
+            for (let i = 0; i < 100; i++) {
+                var element = viewArray[i];
+                var id = element[0];
+                var name = element[1];
+                var symbol = element[2];
+                createCard(symbol, name, id);
 
+            }
+            checkLocalstorage();
 
         },
         error: function (error) {
@@ -108,7 +111,7 @@ function clearInfo(id) {
     $('#' + id).attr({
         onclick: 'moreInfo(this.id)'
     });
-    $('#inforow_' + id).text('');
+    $('#inforow_' + id).empty();
 }
 
 function createCard(symbol, name, id) {
@@ -165,7 +168,7 @@ function createMiniCards() {
 
         $('.modal-content').append(string);
     }
-    var button = '<div class="container text-center"><button type="button" class="btn btn-outline-secondary box-shaded" onClick="document.location.reload(true)">Save an close</button></div>';
+    var button = '<div class="container text-center"><button type="button" class="btn btn-outline-secondary box-shaded" onClick="closeModal()">Save an close</button></div>';
     $('.modal-content').append(button);
     window.onclick = function (event) {
         if (event.target == modal) {
@@ -177,6 +180,13 @@ function createMiniCards() {
     }
 
 }
+
+function closeModal() {
+    $('.modal-content').empty();;
+    modal.style.display = "block";
+
+}
+
 
 function aboutMe() {
     var modal = document.getElementById("myModal");
@@ -209,10 +219,11 @@ function aboutMe() {
 function handleSwitch(checkbox, checkedCoin) {
 
     if (checkbox.checked == true) {
-        var counter = localStorage.length;
+        var counter = localStorage.length + 1;
+        console.log(counter);
 
 
-        if (counter >= 5) {
+        if (counter > 5) {
             setSwitchOff(checkedCoin);
             createMiniCards();
             return;
@@ -223,29 +234,40 @@ function handleSwitch(checkbox, checkedCoin) {
 
 
     } else {
-        
+        if ($('#checkbox_' + checkedCoin).prop("checked") == true) {
+            setSwitchOff(checkedCoin);
+        }
         clearFromLocalstorage(checkedCoin);
     }
 }
 
 function setSwitchOn(id) {
-    $('#checkbox_' + id).click();
+    if ($('#checkbox_' + id).prop("checked") == true) {
+        return;
+    } else {
+        $('#checkbox_' + id).click();
+    }
+
 }
 
 
 function setSwitchOff(getid) {
+    if ($('#checkbox_' + getid).prop("checked") == true) {
+        var counter = 0;
+        var i = setInterval(function () {
+            counter++;
+            if (counter === 1) {
+                clearInterval(i);
+                $('#checkbox_' + getid).click();
 
 
-    var counter = 0;
-    var i = setInterval(function () {
-        counter++;
-        if (counter === 1) {
-            clearInterval(i);
-            $('#checkbox_' + getid).click();
+            }
+        }, 100);
+    } else {
+        return;
+    }
 
 
-        }
-    }, 100);
 
 
 }
@@ -268,15 +290,15 @@ function checkLocalstorage() {
             i = keys.length;
 
         while (i--) {
-            values.push(localStorage.getItem(keys[i]));
+            setSwitchOn(localStorage.getItem(keys[i])); //values.push
 
         }
-        localStorage.clear();
+        // localStorage.clear();
 
-        for (let i = 0; i < values.length; i++) {
-            
-            setSwitchOn(values[i]);
-        }
+        // for (let i = 0; i < values.length; i++) {
+
+        //     setSwitchOn(values[i]);
+        // }
     }
 }
 
@@ -323,7 +345,19 @@ function coinSearcher() {
     let value = $("#searchInput").val().toLowerCase();
 
     if (value == '') {
-        document.location.reload(true);
+        var modal = document.getElementById("myModal");
+        var span = document.getElementsByClassName("close");
+        modal.style.display = "block";
+
+        var message = '<span class="close text-right" onClick="closeModal()">&times;</span><div class="container"><p class="text-center">Please enter some keywords for search!</p></div > ';
+        $('.modal-content').html(message);
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+                closeModal();
+            }
+
+        }
         return;
     } else {
         for (let j = 0; j < coinsArray.length; j++) {
@@ -347,7 +381,7 @@ function coinSearcher() {
         var span = document.getElementsByClassName("close");
         modal.style.display = "block";
 
-        var message = '<span class="close text-right" onClick="closeModal()">&times;</span><div class="container"><h2 class="text-center">Sorry, your search is no results!</h2></div > ';
+        var message = '<div class="container"><p class="text-center">Sorry, your search is no results!</p></div > ';
         $('.modal-content').html(message);
         window.onclick = function (event) {
             if (event.target == modal) {
@@ -405,6 +439,7 @@ function coinSearcher() {
 //chart
 
 function chartCoins() {
+    var coinsForLive = [];
 
     keys = Object.keys(localStorage),
         i = keys.length;
@@ -415,7 +450,7 @@ function chartCoins() {
     }
 
 
-    
+
 
     for (let i = 0; i < coinsForLive.length; i++) {
         var value = coinsForLive[i];
@@ -435,21 +470,11 @@ function chartCoins() {
 
 
 
-    
-    
+
+
     var tempURL = multyCoinsURL + coinsForLive.toString().toUpperCase() + apiKey;
 
-    var data = {
-        type: "spline",
-        name: '',
-        showInLegend: true,
-        xValueFormatString: "sec hours",
-        yValueFormatString: "$#,##0.#",
 
-        dataPoints: []
-
-
-    }
 
 
     var options = {
@@ -491,70 +516,80 @@ function chartCoins() {
 
         },
         {
-                type: "spline",
-                name: [],
-                showInLegend: true,
-                xValueFormatString: "sec hours",
-                yValueFormatString: "$#,##0.#",
+            type: "spline",
+            name: [],
+            showInLegend: true,
+            xValueFormatString: "sec hours",
+            yValueFormatString: "$#,##0.#",
 
-                dataPoints: []
+            dataPoints: []
 
-            },
-            {
-                type: "spline",
-                name: [],
-                showInLegend: true,
-                xValueFormatString: "sec hours",
-                yValueFormatString: "$#,##0.#",
+        },
+        {
+            type: "spline",
+            name: [],
+            showInLegend: true,
+            xValueFormatString: "sec hours",
+            yValueFormatString: "$#,##0.#",
 
-                dataPoints: []
+            dataPoints: []
 
-            },
-            {
-                type: "spline",
-                name: [],
-                showInLegend: true,
-                xValueFormatString: "sec hours",
-                yValueFormatString: "$#,##0.#",
+        },
+        {
+            type: "spline",
+            name: [],
+            showInLegend: true,
+            xValueFormatString: "sec hours",
+            yValueFormatString: "$#,##0.#",
 
-                dataPoints: []
+            dataPoints: []
 
-            },
-            {
-                type: "spline",
-                name: [],
-                showInLegend: true,
-                xValueFormatString: "sec hours",
-                yValueFormatString: "$#,##0.#",
+        },
+        {
+            type: "spline",
+            name: [],
+            showInLegend: true,
+            xValueFormatString: "sec hours",
+            yValueFormatString: "$#,##0.#",
 
-                dataPoints: []
+            dataPoints: []
 
-            }
+        }
 
         ]
     };
 
     $(".for_insert").CanvasJSChart(options);
     var chart = $(".for_insert").CanvasJSChart();
-    var i = setInterval(() => {
-        $.getJSON(tempURL, (res) => {
-            console.log(res);
-
-            for (let i = 0; i < coinsForLive.length; i++) {
-                console.log(res[coinsForLive[i].toUpperCase()]);
-                // options.data.new(data);
-                options.data[i].name = coinsForLive[i];
-
-                options.data[i].dataPoints.push({
-                    y: res[coinsForLive[i].toUpperCase()].USD,
-                    x: new Date()
-                })
-            }
+    if (coinsForLive != undefined || coinsForLive.length != 0) {
+        var i = setInterval(() => {
+            $.getJSON(tempURL, (res) => {
 
 
-            chart.render();
-        });
-    }, 2000)
+                for (let j = 0; j < coinsForLive.length; j++) {
+
+                    // options.data.new(data);
+                    options.data[j].name = coinsForLive[j];
+
+                    options.data[j].dataPoints.push({
+                        y: res[coinsForLive[j].toUpperCase()].USD,
+                        x: new Date()
+                    })
+                }
+                console.log(coinsForLive);
+
+
+                chart.render();
+            });
+        }, 2000)// array empty or does not exist
+    }
+
+    $(".mybutton").on("click", function () {
+        console.log($(this).text());
+        clearTimeout(i);
+    });
+
+
     // var i = setInterval(function () {
     //     // do your thing
     //     options.data[0].dataPoints.push({
