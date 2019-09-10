@@ -3,11 +3,11 @@ const single_coin_url = 'https://api.coingecko.com/api/v3/coins/';
 const multyCoinsURL = 'https://min-api.cryptocompare.com/data/pricemulti?fsyms=';
 const apiKey = '&tsyms=USD&api_key=5eb33644f883867df9a7bbfa198466834a89e30b0f477d87a36e5d8e7b481d42';
 var coinsForLive = [];
-
+var values = [];
 var viewArray = [];
 var coinsArray = [];
 getCoins();
-
+checkLocalstorage();
 
 
 
@@ -55,7 +55,7 @@ function getCoins() {
                 createCard(symbol, name, id);
 
             }
-            checkLocalstorage();
+            
 
         },
         error: function (error) {
@@ -64,7 +64,8 @@ function getCoins() {
         complete: function () {
 
         }
-    })
+    });
+    
 }
 
 function moreInfo(getId) {
@@ -87,7 +88,7 @@ function moreInfo(getId) {
                     var usd_price = data.market_data.current_price.usd;
                     var eur_price = data.market_data.current_price.eur;
                     var ils_price = data.market_data.current_price.ils;
-                    string = '<div class="container col d-flex align-items-center justify-content-between><div class="container col"><img src = "' + image_url + '" class="logo-img" ></div><div class="container col moreinfo text-center"><p>' + eur_price + '<strong> €</strong></p><p>' + usd_price + '<strong> $</strong></p><p>' + ils_price + '<strong> ₪</strong></p></div></div>'
+                    string = '<div class="container col d-flex align-items-center justify-content-between><div class="container col"><img src = "' + image_url + '" class="logo-img" ></div><div class="container col moreinfo text-center"><p><strong>Price:</strong></p><p>' + eur_price + '<strong> €</strong></p><p>' + usd_price + '<strong> $</strong></p><p>' + ils_price + '<strong> ₪</strong></p></div></div>'
                     $('#inforow_' + getId).html(string);
                     $('#' + getId).text('Close');
                     $('#' + getId).attr({
@@ -101,7 +102,7 @@ function moreInfo(getId) {
                 complete: function () {
 
                 }
-            })
+            });
         }
     }, 10);
 }
@@ -124,6 +125,33 @@ function createCard(symbol, name, id) {
     $('.for_insert').append(string);
 
 }
+
+function createSearchCard(symbol, name, id) {
+    var modal = document.getElementById("myModal");
+    var span = document.getElementsByClassName("close");
+    modal.style.display = "block";
+    var string = '<span class="close text-right" onClick="closeModal()">&times;</span><div class="container col-sm-6 box-shaded" name="' + id + '" id="container_' + symbol + '">';
+    string += '<div class="row justify-content-between name="' + id + '"><div class="container col"><h2>' + symbol + '</h2>';
+    string += '</div><div class="custom-control custom-switch"><div class="checkbox checkbox-slider--b-flat checkbox-slider-md">';
+    string += '<label><input type="checkbox"  onchange="handleSwitch(this, this.name)" name="' + id + '" id="checkbox_' + id + '"><span></span></label></div></div></div>';
+    string += '<div><p class="fullname">' + name + '</p></div><div class="row info" id="inforow_' + id + '"></div>';
+    string += '<button type="button" class="btn btn-outline-secondary box-shaded" onclick="moreInfo(this.id)" id="' + id + '">More info</button></div>';
+    $('.modal-content').empty();
+    $('.modal-content').append(string);
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "block";
+        }
+
+    }
+    span.onclick = function (event) {
+        if (event.target == modal) {
+            closeModal();
+        }
+
+    }
+}
+
 
 function createMiniCards() {
     var modal = document.getElementById("myModal");
@@ -225,6 +253,7 @@ function handleSwitch(checkbox, checkedCoin) {
             createMiniCards();
             return;
         } else {
+            setSwitchOn(checkedCoin);
             setToLocalstorage(checkedCoin);
         }
 
@@ -282,12 +311,12 @@ function clearFromLocalstorage(id) {
 function checkLocalstorage() {
     if (localStorage.length > 0) {
 
-        var values = [],
+        
             keys = Object.keys(localStorage),
             i = keys.length;
 
         while (i--) {
-            setSwitchOn(localStorage.getItem(keys[i])); //values.push
+            $('#checkbox_'+(localStorage.getItem(keys[i]))).attr({checked:true} ); //values.push
 
         }
         // localStorage.clear();
@@ -356,7 +385,7 @@ function coinSearcher() {
                 var name = element[1];
                 var symbol = element[2];
                 $('.for_insert').empty();
-                createCard(symbol, name, id);
+                createSearchCard(symbol, name, id);
                 checkLocalstorage();
                 counter++;
 
@@ -370,7 +399,7 @@ function coinSearcher() {
         var span = document.getElementsByClassName("close");
         modal.style.display = "block";
 
-        var message = '<div class="container"><p class="text-center">Sorry, your search is no results!</p></div > ';
+        var message = '<span class="close text-right" onClick="closeModal()">&times;</span><div class="container"><p class="text-center">Sorry, your search is no results!</p></div > ';
         $('.modal-content').html(message);
         window.onclick = function (event) {
             if (event.target == modal) {
@@ -473,7 +502,7 @@ function chartCoins() {
             text: "Online Chart"
         },
         subtitles: [{
-            text: "Only coins with live data enabled will be shown"
+            text: "Coins with live data provided by server will be shown"
         }],
         axisX: {
             title: "Date and time"
@@ -547,7 +576,7 @@ function chartCoins() {
 
         ]
     };
-
+    $(".for_insert").empty();
     $(".for_insert").CanvasJSChart(options);
     var chart = $(".for_insert").CanvasJSChart();
     if (coinsForLive != undefined || coinsForLive.length != 0) {
