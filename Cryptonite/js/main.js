@@ -116,7 +116,7 @@ function clearInfo(id) {
 }
 
 function createCard(symbol, name, id) {
-    var string = '<div class="container col-sm-4 box-shaded" name="' + id + '" id="container_' + symbol + '">';
+    var string = '<div class="card col-sm-4 box-shaded" name="' + id + '" id="container_' + symbol + '">';
     string += '<div class="row justify-content-between name="' + id + '"><div class="container col"><h2>' + symbol + '</h2>';
     string += '</div><div class="custom-control custom-switch"><div class="checkbox checkbox-slider--b-flat checkbox-slider-md">';
     string += '<label><input type="checkbox"  onchange="handleSwitch(this, this.name)" name="' + id + '" id="checkbox_' + id + '"><span></span></label></div></div></div>';
@@ -130,7 +130,7 @@ function createSearchCard(symbol, name, id) {
     var modal = document.getElementById("myModal");
     var span = document.getElementsByClassName("close");
     modal.style.display = "block";
-    var string = '<span class="close text-right" onClick="closeModal()">&times;</span><div class="container col-sm-8 box-shaded" name="' + id + '" id="container_' + symbol + '">';
+    var string = '<span class="close text-right" onClick="closeModal()">&times;</span><div class="card col-sm-8 box-shaded" name="' + id + '" id="container_' + symbol + '">';
     string += '<div class="row justify-content-between name="' + id + '"><div class="container col"><h2>' + symbol + '</h2>';
     string += '</div><div class="custom-control custom-switch"><div class="checkbox checkbox-slider--b-flat checkbox-slider-md">';
     string += '<label><input type="checkbox"  onchange="handleSwitch(this, this.name)" name="' + id + '" id="checkbox_' + id + '"><span></span></label></div></div></div>';

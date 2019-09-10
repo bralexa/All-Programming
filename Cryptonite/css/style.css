@@ -4,9 +4,13 @@ body {
   font-weight: 400;
 }
 
+.card {
+  margin: auto;
+}
+
 .container {
   background-color: rgba(255, 255, 255, 0.6);
-  margin: 10px auto;
+  margin: 1px auto;
 }
 
 .header, .box-shaded {
@@ -28,7 +32,7 @@ body {
 }
 
 .btn {
-  margin: 10px;
+  margin: 5px;
   color: rgba(18, 18, 145, 0.9);
   border-color: rgba(18, 18, 145, 0.9);
 }
@@ -197,8 +201,8 @@ body {
 }
 
 .parallax__layer--back {
-  -webkit-transform: translateZ(-1px) scale(2);
-          transform: translateZ(-1px) scale(2);
+  -webkit-transform: translateZ(-1px) scale(3);
+          transform: translateZ(-1px) scale(3);
 }
 
 .parallax__group {
