@@ -13,7 +13,7 @@ body {
 }
 
 .container {
- /* background-color: rgba(255, 255, 255, 0.6);*/
+  background-color: rgba(255, 255, 255, 0.6);
   margin: 1% auto;
 }
 
@@ -235,7 +235,7 @@ body {
 /* Modal Content/Box */
 .modal-content {
   background-color: #fefefe;
-  margin: auto auto;
+  margin: 20% auto;
   padding: 1%;
   border: 2px solid #88888831;
   width: 75%;

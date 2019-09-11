@@ -7,9 +7,6 @@ var values = [];
 var viewArray = [];
 var coinsArray = [];
 getCoins();
-checkLocalstorage();
-
-
 
 function getCoins() {
     $('.for_insert').empty();
@@ -22,7 +19,7 @@ function getCoins() {
         counter++;
         if (counter === 100) {
             clearInterval(i);
-            var message = '<div class="card box-shaded" id="overallProgress"><h4 class="text-center">Still waiting...  </h4></div>';
+            var message = '<div class="box progress" style="height: 2rem;"><div class="progress-bar progress-bar-striped progress-bar-animated" style="width:100%; height: 100%;">Still waiting...</div></div>';
             $('.forprogress-bar').html(message);
         }
     }, 10);
@@ -33,17 +30,8 @@ function getCoins() {
         async: true,
         success: function (data) {
             data.forEach((value) => { coinsArray.push([value.id, value.name, value.symbol]) });
-
-
             coins = data.splice(500, 100);
             coins.forEach((value) => { viewArray.push([value.id, value.name, value.symbol]) });
-            //var modal = document.getElementById("myModal");
-            //modal.style.display = "block";
-
-            
-
-
-
         },
         error: function (error) {
             var modal = document.getElementById("myModal");
@@ -66,7 +54,7 @@ function getCoins() {
                 var name = element[1];
                 var symbol = element[2];
                 createCard(symbol, name, id);
-                
+                checkLocalstorage(id);
             }
             clearInterval(i);
             $('.forprogress-bar').empty();
@@ -87,7 +75,7 @@ function moreInfo(getId) {
             clearInterval(i);
             var message = '<div class="container"><div class="progress"><div class="progress-bar progress-bar-striped progress - bar - animated" style="width:' + counter + '%;">Still waiting...</div></div></div>';
             $('#progressrow_' + getId).html(message);
-            
+
         }
     }, 10);
     $.ajax({
@@ -157,7 +145,7 @@ function createSearchCard(symbol, name, id) {
     string += '<label><input type="checkbox"  onchange="handleSwitch(this, this.name)" name="' + id + '" id="checkbox_' + id + '"><span></span></label></div></div></div>';
     string += '<div><p class="fullname">' + name + '</p></div><div class="row info" id="inforow_' + id + '"></div>';
     string += '<div class="container text-center"><button type="button" class="btn btn-outline-secondary box-shaded" onclick="moreInfo(this.id)" id="' + id + '">More info</button></div></div>';
-    $('.modal-content').empty();
+    $('.for_insert').empty();
     $('.for_insert').append(string);
 
 }
@@ -170,11 +158,7 @@ function createMiniCards() {
     var header = '<h4 class="text-center"><strong>Live reports can be produced for&nbsp;5&nbsp;coins&nbsp;only.</br>Please review your choices.</strong></h4>';
     $('.modal-content').append(header);
     if (localStorage.length > 0) {
-
-
-
-
-        var values = [],
+var values = [],
             keys = Object.keys(localStorage),
             i = keys.length;
 
@@ -226,26 +210,11 @@ function closeModal() {
 
 
 function aboutMe() {
-    var modal = document.getElementById("myModal");
-    modal.style.display = "block";
-
-
-    var string = '<div class="container col box-shaded"><h3 class="text-center"><strong>Alexander Bruder</strong></h3>';
-    string += '<div class="container col-sm-4 text-center"><img class="box-shaded img-fluid" src="img/Me.jpg"></div><div class="container text-center"><h4>Full-Stack Dev</h4></div>';
-    string += '<div class="container text-center"><p><strong>Contacts:</strong></p></div><div class="container text-center"><p>Mobile: <a href="tel:+972548887511">+972548887511</a></p><p>E-mail: <a class="text-center" href="mailto:nive.bald.man@gmail.com">nice.bald.man@gmail.com</a></p></div>';
-    $('.modal-content').empty();
-    $('.modal-content').append(string);
-
-    var button = '<div class="container text-center"><button type="button" class="btn btn-outline-secondary box-shaded" onClick="closeModal()">Back</button></div>';
-
-    $('.modal-content').append(button);
-    window.onclick = function (event) {
-        if (event.target == modal) {
-            modal.style.display = "block";
-
-        }
-
-    };
+    var string = '<div class="container col-sm-4 text-center box-shaded"><h3 class="text-center"><strong>Alexander Bruder</strong></h3>';
+    string += '<div class="container col-sm-6 text-center"><img class="box-shaded img-fluid" src="img/Me.jpg"></div><h4>Full-Stack Dev</h4>';
+    string += '<p><strong>Contacts:</strong></p><p>Mobile: <a href="tel:+972548887511">+972548887511</a></p><p>E-mail: <a class="text-center" href="mailto:nive.bald.man@gmail.com">nice.bald.man@gmail.com</a></p>';
+    $('.for_insert').empty();
+    $('.for_insert').append(string);
 
 }
 
@@ -297,10 +266,6 @@ function setSwitchOff(getid) {
     } else {
         return;
     }
-
-
-
-
 }
 
 
@@ -313,7 +278,7 @@ function clearFromLocalstorage(id) {
     window.localStorage.removeItem(id);
 }
 
-function checkLocalstorage() {
+function checkLocalstorage(id) {
     if (localStorage.length > 0) {
 
 
@@ -321,8 +286,9 @@ function checkLocalstorage() {
             i = keys.length;
 
         while (i--) {
-            $('#checkbox_' + (localStorage.getItem(keys[i]))).attr({ checked: true }); //values.push
-
+            if (id == localStorage.getItem(keys[i])) {
+                setSwitchOn(id);
+            }
         }
 
     }
@@ -342,11 +308,10 @@ function liveReports() {
                 closeModal();
             }
 
-        }
+        };
     } else {
 
         chartCoins();
-
     }
 
 }
@@ -525,8 +490,6 @@ function chartCoins() {
     if (coinsForLive != undefined || coinsForLive.length != 0) {
         var i = setInterval(() => {
             $.getJSON(tempURL, (res) => {
-
-
                 for (let j = 0; j < coinsForLive.length; j++) {
                     if (res[coinsForLive[j].toUpperCase()] != undefined) {
                         options.data[j].name = coinsNamesForChart[j];
@@ -536,8 +499,6 @@ function chartCoins() {
                             x: new Date()
                         });
                     }
-
-
                 }
                 chart.render();
             });
