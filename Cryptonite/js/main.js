@@ -297,10 +297,9 @@ function checkLocalstorage(id) {
 function liveReports() {
     if (localStorage.length == 0) {
         var modal = document.getElementById("myModal");
-        var span = document.getElementsByClassName("close");
         modal.style.display = "block";
 
-        var message = '<span class="close text-right" onClick="closeModal()">&times;</span><div class="container"><h2 class="text-center">No coins chosen!</h2></div > ';
+        var message = '<div class="container"><h5 class="text-center">No coins chosen!</h5></div > ';
         $('.modal-content').html(message);
         window.onclick = function (event) {
             if (event.target == modal) {
@@ -329,10 +328,9 @@ function coinSearcher() {
 
     if (value == '') {
         var modal = document.getElementById("myModal");
-        var span = document.getElementsByClassName("close");
         modal.style.display = "block";
 
-        var message = '<span class="close text-right" onClick="closeModal()">&times;</span><div class="container"><p class="text-center">Please enter id, short symbol or name of coin!</p></div > ';
+        var message = '<div class="container"><h5 class="text-center">Please enter id, short symbol or name of coin!</h5</div > ';
         $('.modal-content').html(message);
         window.onclick = function (event) {
             if (event.target == modal) {
@@ -340,7 +338,7 @@ function coinSearcher() {
                 closeModal();
             }
 
-        }
+        };
         return;
     } else {
         for (let j = 0; j < coinsArray.length; j++) {
@@ -361,10 +359,9 @@ function coinSearcher() {
     }
     if (counter == 0) {
         var modal = document.getElementById("myModal");
-        var span = document.getElementsByClassName("close");
         modal.style.display = "block";
 
-        var message = '<span class="close text-right" onClick="closeModal()">&times;</span><div class="container"><p class="text-center">Sorry, your search returned no results!</p></div > ';
+        var message = '<div class="container"><h5 class="text-center">Sorry, your search returned no results!</h5></div > ';
         $('.modal-content').html(message);
         window.onclick = function (event) {
             if (event.target == modal) {
@@ -372,7 +369,7 @@ function coinSearcher() {
                 closeModal();
             }
 
-        }
+        };
     }
 }
 
