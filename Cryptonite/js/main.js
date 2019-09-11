@@ -54,10 +54,11 @@ function getCoins() {
                 var name = element[1];
                 var symbol = element[2];
                 createCard(symbol, name, id);
-                checkLocalstorage(id);
+                
             }
             clearInterval(i);
             $('.forprogress-bar').empty();
+            checkLocalstorage();
         }
     });
 
@@ -278,7 +279,7 @@ function clearFromLocalstorage(id) {
     window.localStorage.removeItem(id);
 }
 
-function checkLocalstorage(id) {
+function checkLocalstorage() {
     if (localStorage.length > 0) {
 
 
@@ -286,9 +287,9 @@ function checkLocalstorage(id) {
             i = keys.length;
 
         while (i--) {
-            if (id == localStorage.getItem(keys[i])) {
-                setSwitchOn(id);
-            }
+            
+            $('#checkbox_' + localStorage.getItem(keys[i])).attr({ checked: true });
+            
         }
 
     }
