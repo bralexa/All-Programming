@@ -6,6 +6,22 @@ var coinsForLive = [];
 var values = [];
 var viewArray = [];
 var coinsArray = [];
+
+$(document).ready(function () {
+    var header = '<h1 class="header-crypto display-7 text-fluid"><strong>CRYPTONITE</strong></h1><p class="text-center font-weight-light" > cryptocoins online search engine</p >';
+    $('.first').html(header);
+    var subheader = '<div class="row"><div class="box col-sm-6 d-flex align-items-center justify-content-between">';
+    subheader += '<button type="button" class="btn btn-outline-secondary box-shaded mybutton" value="Reload Page" onClick="document.location.reload(true)">All coins</button>';
+    subheader += '<button type="button" class="btn btn-outline-secondary box-shaded" onClick="liveReports()">Livereports</button>';     
+    subheader += '<button type="button" class="btn btn-outline-secondary box-shaded mybutton" onClick="aboutMe()">About me</button></div >';              
+    subheader += '<div class="box col-sm-6 d-flex align-items-center justify-content-between">';
+    subheader += '<input type="text" id="searchInput" class="form-control box-shaded" placeholder="Find your favorite coin">';
+    subheader += '<button type="button" class="btn btn-outline-secondary box-shaded mybutton" onclick="coinSearcher()">Search!</button></div></div>';
+    $('.sub-header').html(subheader);
+});
+
+
+
 getCoins();
 
 function getCoins() {
@@ -19,7 +35,7 @@ function getCoins() {
         counter++;
         if (counter === 100) {
             clearInterval(i);
-            var message = '<div class="box progress" style="height: 2rem;"><div class="progress-bar progress-bar-striped progress-bar-animated" style="width:100%; height: 100%;">Still waiting...</div></div>';
+            var message = '<div class="card box-shaded" id="overallProgress"><h4 class="text-center">Still waiting....</h4><div class="box progress" style="height: 2rem;"><div class="progress-bar progress-bar-striped progress-bar-animated" style="width:100%; height: 100%;"></div></div></div>';
             $('.forprogress-bar').html(message);
         }
     }, 10);
@@ -33,7 +49,7 @@ function getCoins() {
             coins = data.splice(500, 100);
             coins.forEach((value) => { viewArray.push([value.id, value.name, value.symbol]) });
         },
-        error: function (error) {
+        error: function () {
             var modal = document.getElementById("myModal");
             modal.style.display = "block";
 
@@ -128,8 +144,8 @@ function clearInfo(id) {
 }
 
 function createCard(symbol, name, id) {
-    var string = '<div class="card col-sm-4 box-shaded" name="' + id + '" id="container_' + symbol + '">';
-    string += '<div class="row justify-content-between name="' + id + '"><div class="container col"><h2>' + symbol + '</h2>';
+    var string = '<div class="card col-sm-4 box-shaded" name="' + name + '" id="container_' + symbol + '">';
+    string += '<div class="row justify-content-between name=""><div class="container col"><h2>' + symbol + '</h2>';
     string += '</div><div class="custom-control custom-switch"><div class="checkbox checkbox-slider--b-flat checkbox-slider-md">';
     string += '<label><input type="checkbox"  onchange="handleSwitch(this, this.name)" name="' + id + '" id="checkbox_' + id + '"><span></span></label></div></div></div>';
     string += '<div><p class="fullname">' + name + '</p></div><div class="row info" id="progressrow_' + id + '"></div><div class="row info" id="inforow_' + id + '"></div>';
@@ -156,7 +172,7 @@ function createMiniCards() {
     var modal = document.getElementById("myModal");
     modal.style.display = "block";
 
-    var header = '<h4 class="text-center"><strong>Live reports can be produced for&nbsp;5&nbsp;coins&nbsp;only.</br>Please review your choices.</strong></h4>';
+    var header = '<h5 class="text-center"><strong>Live reports can be produced for&nbsp;5&nbsp;coins&nbsp;only.</br>Please review your choices.</strong></h5>';
     $('.modal-content').append(header);
     if (localStorage.length > 0) {
 var values = [],
@@ -184,7 +200,7 @@ var values = [],
     }
 
     function createMiniContent(id, symbol) {
-        var string = '<div class="card col-sm-12 box-shaded">';
+        var string = '<div class="container col-sm-10 box-shaded">';
         string += '<div class="row d-flex align-items-center justify-content-between"><div class="container col"><p>' + symbol + '</p>';
         string += '</div><div class="custom-control custom-switch"><div class="checkbox checkbox-slider--b-flat checkbox-slider-md">';
         string += '<label><input type="checkbox" checked onchange="handleSwitch(this, this.name)" name="' + id + '" id="minicheckbox_' + id + '"><span></span></label></div></div></div>';
