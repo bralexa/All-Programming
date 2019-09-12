@@ -30,7 +30,7 @@ function getCoins() {
     var counter = 0;
     var i = setInterval(function () {
 
-        var percent = '<div class="card box-shaded" id="overallProgress"><h4 class="text-center">Loading coins...   ' + counter + '%</h4><div class="box progress" style="height: 2rem;"><div class="progress-bar progress-bar-animated" style="width:' + counter + '%; height: 100%;"></div></div></div>';
+        var percent = '<div class="card box-shaded" id="overallProgress"><h4 class="text-center">Loading coins...   ' + counter + '%</h4><div class="box progress" style="height: 2rem;"><div class="progress-bar progress-bar-striped progress-bar-animated" style="width:' + counter + '%; height: 100%;"></div></div></div>';
         $('.forprogress-bar').html(percent);
         counter++;
         if (counter === 100) {
@@ -38,7 +38,7 @@ function getCoins() {
             var message = '<div class="card box-shaded" id="overallProgress"><h4 class="text-center">Still waiting....</h4><div class="box progress" style="height: 2rem;"><div class="progress-bar progress-bar-striped progress-bar-animated" style="width:100%; height: 100%;"></div></div></div>';
             $('.forprogress-bar').html(message);
         }
-    }, 10);
+    }, 30);
     $.ajax({
         type: 'GET',
         datatype: 'json',
@@ -84,7 +84,7 @@ function moreInfo(id) {
     var singe_url = single_coin_url + id;
     var counter = 0;
     var i = setInterval(function () {
-        var percent = '<div class="container"><div class="progress"><div class="progress-bar progress-bar-striped progress - bar - animated" style="width:' + counter + '%;">' + counter + '%</div></div></div>';
+        var percent = '<div class="container"><div class="progress"><div class="progress-bar progress-bar-striped progress - bar - animated" style="width:' + counter + '%;"></div></div></div>';
         $('#progressrow_' + id).html(percent);
         counter++;
         if (counter === 100) {
@@ -93,7 +93,7 @@ function moreInfo(id) {
             $('#progressrow_' + id).html(message);
 
         }
-    }, 10);
+    }, 40);
     
     if (checkSessionStorage(id)) {
         var string = '<div class="container box-shaded col d-flex align-items-center justify-content-between><div class="container col"><img src = "' + window.sessionStorage.getItem(id)[0] + '" class="logo-img" ></div><div class="container box-shaded col moreinfo text-center"><p><strong>Price:</strong></p><h5>' + window.sessionStorage.getItem(id)[2] + '<strong> €</strong></h5><h5>' + window.sessionStorage.getItem(id)[1] + '<strong> $</strong></h5><h5>' + window.sessionStorage.getItem(id)[3] + '<strong> ₪</strong></h5></div></div>'
@@ -113,9 +113,15 @@ function moreInfo(id) {
         async: true,
         success: function (data) {
             var image_url = data.image.large;
-            var usd_price = data.market_data.current_price.usd.toFixed(4);
-            var eur_price = data.market_data.current_price.eur.toFixed(4);
-            var ils_price = data.market_data.current_price.ils.toFixed(4);
+            var usd_price = data.market_data.current_price.usd;
+            if (usd_price < 1)
+                usd_price = usd_price.toFixed(4);    
+            var eur_price = data.market_data.current_price.eur;
+            if (eur_price < 1)
+                eur_price = eur_price.toFixed(4);
+            var ils_price = data.market_data.current_price.ils;
+            if (ils_price < 1)
+                ils_price = ils_price.toFixed(4);
             string = '<div class="container box-shaded col d-flex align-items-center justify-content-between><div class="container col"><img src = "' + image_url + '" class="logo-img" ></div><div class="container box-shaded col moreinfo text-center"><p><strong>Price:</strong></p><h5>' + eur_price + '<strong> €</strong></h5><h5>' + usd_price + '<strong> $</strong></h5><h5>' + ils_price + '<strong> ₪</strong></h5></div></div>';
             window.sessionStorage.setItem(id, [image_url, usd_price, eur_price, ils_price]);
             setTimeout(function () {
