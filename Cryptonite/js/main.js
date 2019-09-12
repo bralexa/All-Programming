@@ -18,11 +18,11 @@ $(document).ready(function () {
     subheader += '<input type="text" id="searchInput" class="form-control box-shaded" placeholder="Find your favorite coin">';
     subheader += '<button type="button" class="btn btn-outline-secondary box-shaded mybutton" onclick="coinSearcher()">Search!</button></div></div>';
     $('.sub-header').html(subheader);
+    getCoins();
+    filter();
 });
 
 
-
-getCoins();
 
 function getCoins() {
     $('.for_insert').empty();
@@ -149,7 +149,7 @@ function createCard(symbol, name, id) {
     string += '</div><div class="custom-control custom-switch"><div class="checkbox checkbox-slider--b-flat checkbox-slider-md">';
     string += '<label><input type="checkbox"  onchange="handleSwitch(this, this.name)" name="' + id + '" id="checkbox_' + id + '"><span></span></label></div></div></div>';
     string += '<div><p class="fullname">' + name + '</p></div><div class="row info" id="progressrow_' + id + '"></div><div class="row info" id="inforow_' + id + '"></div>';
-    string += '<div class="container text-center"><button type="button" class="btn btn-outline-secondary box-shaded" onclick="moreInfo(this.id)" id="' + id + '">More info</button></div></div>';
+    string += '<div class="text-center"><button type="button" class="btn btn-outline-secondary box-shaded" onclick="moreInfo(this.id)" id="' + id + '">More info</button></div></div>';
     $('.for_insert').append(string);
 
 }
@@ -530,4 +530,16 @@ function chartCoins() {
         }
         e.chart.render();
     }
+}
+
+function filter() {
+    $("#searchInput").keyup(function () {
+        let value = $(this).val().toLowerCase();
+        $("#for_insert .card").filter(function () {
+            $(this).toggle($(this).attr('name').toLowerCase().indexOf(value) > -1);
+        });
+    });
+        
+    
+    
 }
