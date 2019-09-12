@@ -61,6 +61,10 @@ body {
   max-height: 150px;
 }
 
+.main-container, .sub-header {
+  background-color: #fefefe00;
+}
+
 .checkbox-slider--b-flat {
   margin: 5px;
   position: relative;
