@@ -58,6 +58,7 @@ body {
 
 .logo-img {
   width: 93%;
+  max-height: 150px;
 }
 
 .checkbox-slider--b-flat {

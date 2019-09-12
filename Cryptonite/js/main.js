@@ -12,8 +12,8 @@ $(document).ready(function () {
     $('.first').html(header);
     var subheader = '<div class="row"><div class="box col-sm-6 d-flex align-items-center justify-content-between">';
     subheader += '<button type="button" class="btn btn-outline-secondary box-shaded mybutton" value="Reload Page" onClick="document.location.reload(true)">All coins</button>';
-    subheader += '<button type="button" class="btn btn-outline-secondary box-shaded" onClick="liveReports()">Livereports</button>';     
-    subheader += '<button type="button" class="btn btn-outline-secondary box-shaded mybutton" onClick="aboutMe()">About me</button></div >';              
+    subheader += '<button type="button" class="btn btn-outline-secondary box-shaded" onClick="liveReports()">Livereports</button>';
+    subheader += '<button type="button" class="btn btn-outline-secondary box-shaded mybutton" onClick="aboutMe()">About me</button></div >';
     subheader += '<div class="box col-sm-6 d-flex align-items-center justify-content-between">';
     subheader += '<input type="text" id="searchInput" class="form-control box-shaded" placeholder="Find your favorite coin">';
     subheader += '<button type="button" class="btn btn-outline-secondary box-shaded mybutton" onclick="coinSearcher()">Search!</button></div></div>';
@@ -70,7 +70,7 @@ function getCoins() {
                 var name = element[1];
                 var symbol = element[2];
                 createCard(symbol, name, id);
-                
+
             }
             clearInterval(i);
             $('.forprogress-bar').empty();
@@ -80,33 +80,47 @@ function getCoins() {
 
 }
 
-function moreInfo(getId) {
-    var singe_url = single_coin_url + getId;
-
+function moreInfo(id) {
+    var singe_url = single_coin_url + id;
     var counter = 0;
     var i = setInterval(function () {
         var percent = '<div class="container"><div class="progress"><div class="progress-bar progress-bar-striped progress - bar - animated" style="width:' + counter + '%;">' + counter + '%</div></div></div>';
-        $('#progressrow_' + getId).html(percent);
+        $('#progressrow_' + id).html(percent);
         counter++;
         if (counter === 100) {
             clearInterval(i);
             var message = '<div class="container"><div class="progress"><div class="progress-bar progress-bar-striped progress - bar - animated" style="width:' + counter + '%;">Still waiting...</div></div></div>';
-            $('#progressrow_' + getId).html(message);
+            $('#progressrow_' + id).html(message);
 
         }
     }, 10);
-    $.ajax({
+    
+    if (checkSessionStorage(id)) {
+        var string = '<div class="container box-shaded col d-flex align-items-center justify-content-between><div class="container col"><img src = "' + window.sessionStorage.getItem(id)[0] + '" class="logo-img" ></div><div class="container box-shaded col moreinfo text-center"><p><strong>Price:</strong></p><h5>' + window.sessionStorage.getItem(id)[2] + '<strong> €</strong></h5><h5>' + window.sessionStorage.getItem(id)[1] + '<strong> $</strong></h5><h5>' + window.sessionStorage.getItem(id)[3] + '<strong> ₪</strong></h5></div></div>'
+        $('#inforow_' + id).html(string);
+        $('#' + id).text('Close info');
+        $('#' + id).attr({
+            onclick: 'clearInfo(this.id)'
+        });
+        clearInterval(i);
+        $('#progressrow_' + id).empty();
+    
+    } else {
+        $.ajax({
         type: 'GET',
         datatype: 'json',
         url: singe_url,
         async: true,
         success: function (data) {
             var image_url = data.image.large;
-            var usd_price = data.market_data.current_price.usd;
-            var eur_price = data.market_data.current_price.eur;
-            var ils_price = data.market_data.current_price.ils;
-            string = '<div class="container box-shaded col d-flex align-items-center justify-content-between><div class="container col"><img src = "' + image_url + '" class="logo-img" ></div><div class="container box-shaded col moreinfo text-center"><p><strong>Price:</strong></p><h5>' + eur_price + '<strong> €</strong></h5><h5>' + usd_price + '<strong> $</strong></h5><h5>' + ils_price + '<strong> ₪</strong></h5></div></div>'
-
+            var usd_price = data.market_data.current_price.usd.toFixed(4);
+            var eur_price = data.market_data.current_price.eur.toFixed(4);
+            var ils_price = data.market_data.current_price.ils.toFixed(4);
+            string = '<div class="container box-shaded col d-flex align-items-center justify-content-between><div class="container col"><img src = "' + image_url + '" class="logo-img" ></div><div class="container box-shaded col moreinfo text-center"><p><strong>Price:</strong></p><h5>' + eur_price + '<strong> €</strong></h5><h5>' + usd_price + '<strong> $</strong></h5><h5>' + ils_price + '<strong> ₪</strong></h5></div></div>';
+            window.sessionStorage.setItem(id, [image_url, usd_price, eur_price, ils_price]);
+            setTimeout(function () {
+                window.sessionStorage.removeItem(id);
+            }, 120000);
 
         },
         error: function () {
@@ -124,15 +138,16 @@ function moreInfo(getId) {
             };
         },
         complete: function () {
-            $('#inforow_' + getId).html(string);
-            $('#' + getId).text('Close info');
-            $('#' + getId).attr({
+            $('#inforow_' + id).html(string);
+            $('#' + id).text('Close info');
+            $('#' + id).attr({
                 onclick: 'clearInfo(this.id)'
             });
             clearInterval(i);
-            $('#progressrow_' + getId).empty();
+            $('#progressrow_' + id).empty();
         }
     });
+    }
 }
 
 function clearInfo(id) {
@@ -175,7 +190,7 @@ function createMiniCards() {
     var header = '<h5 class="text-center"><strong>Live reports can be produced for&nbsp;5&nbsp;coins&nbsp;only.</br>Please review your choices.</strong></h5>';
     $('.modal-content').append(header);
     if (localStorage.length > 0) {
-var values = [],
+        var values = [],
             keys = Object.keys(localStorage),
             i = keys.length;
 
@@ -268,14 +283,14 @@ function setSwitchOn(id) {
 }
 
 
-function setSwitchOff(getid) {
-    if ($('#checkbox_' + getid).prop("checked") == true) {
+function setSwitchOff(id) {
+    if ($('#checkbox_' + id).prop("checked") == true) {
         var counter = 0;
         var i = setInterval(function () {
             counter++;
             if (counter === 1) {
                 clearInterval(i);
-                $('#checkbox_' + getid).click();
+                $('#checkbox_' + id).click();
 
 
             }
@@ -295,17 +310,32 @@ function clearFromLocalstorage(id) {
     window.localStorage.removeItem(id);
 }
 
+function checkSessionStorage(id) {
+    if (sessionStorage.length > 0) {
+        keys = Object.keys(localStorage),
+        i = keys.length;
+        for (i; i > 0; i--) {
+            if (sessionStorage.getItem(keys[i]) == id) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+    }
+}
+
 function checkLocalstorage() {
     if (localStorage.length > 0) {
 
 
         keys = Object.keys(localStorage),
-            i = keys.length;
+        i = keys.length;
 
         while (i--) {
-            
+
             $('#checkbox_' + localStorage.getItem(keys[i])).attr({ checked: true });
-            
+
         }
 
     }
@@ -539,7 +569,7 @@ function filter() {
             $(this).toggle($(this).attr('name').toLowerCase().indexOf(value) > -1);
         });
     });
-        
-    
-    
+
+
+
 }
