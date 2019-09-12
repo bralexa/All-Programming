@@ -248,9 +248,9 @@ function closeModal() {
 
 
 function aboutMe() {
-    var string = '<div class="container col-sm-4 text-center box-shaded"><h3 class="text-center"><strong>Alexander Bruder</strong></h3>';
-    string += '<div class="container col-sm-6 text-center"><img class="box-shaded img-fluid" src="img/Me.jpg"></div><h4>Full-Stack Dev</h4>';
-    string += '<p><strong>Contacts:</strong></p><p>Mobile: <a href="tel:+972548887511">+972548887511</a></p><p>E-mail: <a class="text-center" href="mailto:nive.bald.man@gmail.com">nice.bald.man@gmail.com</a></p>';
+    var string = '<div class="container col-sm-6 align-items-center box-shaded"><div class="container"><h3 class="text-center"><strong>Alexander Bruder</strong></h3>';
+    string += '<div class="container col-sm-6 text-center"><img class="box-shaded img-fluid" src="img/Me.jpg"></div><h5 class="text-center">Full-Stack Dev</h5>';
+    string += '<div class="card-header box-shaded"><h6 class="text-center"><strong>Contact me:</strong></h6><p class="card text-center">Mobile:</br><a href="tel:+972548887511">+972548887511</a></p><p class="card text-center">E-mail:</br><a class="text-center" href="mailto:nive.bald.man@gmail.com">nice.bald.man@gmail.com</a></p></div></div></div>';
     $('.for_insert').empty();
     $('.for_insert').append(string);
 
