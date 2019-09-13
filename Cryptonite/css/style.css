@@ -65,6 +65,7 @@ body {
   background-color: #fefefe00;
 }
 
+/* checkbox */
 .checkbox-slider--b-flat {
   margin: 5px;
   position: relative;
@@ -195,6 +196,7 @@ body {
   line-height: 30px;
 }
 
+/* parallax */
 .parallax {
   -webkit-perspective: 1px;
           perspective: 1px;
@@ -242,25 +244,11 @@ body {
   background-color: rgba(0, 0, 0, 0.4);
 }
 
-/* Modal Content/Box */
+/* Modal Content Box */
 .modal-content {
   background-color: #fefefe;
   margin: 20% auto;
   padding: 1%;
   border: 2px solid #88888831;
   width: 75%;
-}
-
-/* The Close Button */
-.close {
-  color: #aaa;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
-}
-
-.close:hover, .close:focus {
-  color: black;
-  text-decoration: none;
-  cursor: pointer;
 }

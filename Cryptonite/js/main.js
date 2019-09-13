@@ -231,7 +231,7 @@ function createMiniCards() {//מייצר חלון עם שמות של מטבעו�
 
 }
 function closeModal() {//סוגר חלון מודל 
-    $('.modal-content').empty();;
+    $('.modal-content').empty();
     modal.style.display = "block";
 
 }
