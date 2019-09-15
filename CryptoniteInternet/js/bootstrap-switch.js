@@ -293,7 +293,7 @@
           _this6.$wrapper.addClass(prvgetClass.call(_this6, 'animate'));
         }
         if (dragEnd) {
-          var state = dragEnd > -(_this6.privateHandleWidth / 2);
+          var state = dragEnd > -(_this6.privateHandleWidth / 4);
           dragEnd = false;
           _this6.state(_this6.options.inverse ? !state : state);
         } else {

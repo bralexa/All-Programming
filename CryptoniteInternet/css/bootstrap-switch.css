@@ -55,7 +55,7 @@
 }
 .bootstrap-switch .bootstrap-switch-handle-on.bootstrap-switch-primary,
 .bootstrap-switch .bootstrap-switch-handle-off.bootstrap-switch-primary {
-  background: #007bff;
+  background: rgba(18, 18, 145, 0.9);
   color: #fff;
 }
 .bootstrap-switch .bootstrap-switch-handle-on.bootstrap-switch-default,
