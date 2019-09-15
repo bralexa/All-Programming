@@ -1,0 +1,123 @@
+body {
+  background: rgba(22, 12, 12, 0.1);
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+}
+
+.main {
+    margin-top: 1%;
+}
+
+.card {
+  margin-top: 1%;
+}
+
+.card:hover {
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.742);
+  z-index: 1;
+}
+
+.container {
+  background-color: rgba(255, 255, 255, 0.6);
+  margin: 1% auto;
+}
+
+.header, .box-shaded {
+  -webkit-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
+          box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
+
+}
+
+.first{
+        margin-top: 2%;
+        width: 85%;
+}
+
+.sub-header{
+    margin-bottom: 1%;
+}
+
+.header-crypto, .box-shaded-crypto {
+  text-align: center;
+  color: #0636f8;
+}
+
+.header-crypto-crypto_subheader, .box-shaded-crypto-crypto_subheader {
+  text-align: right;
+}
+
+.header-crypto {
+  color: rgba(18, 18, 145, 0.9);
+}
+
+.btn {
+  margin: 5px;
+  color: rgba(18, 18, 145, 0.9);
+  border-color: rgba(18, 18, 145, 0.9);
+}
+
+.logo-img {
+  width: 93%;
+  max-height: 150px;
+}
+
+.main-container, .sub-header {
+  background-color: #fefefe00;
+}
+
+/* parallax */
+.parallax {
+  -webkit-perspective: 1px;
+          perspective: 1px;
+  height: 300%;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.parallax__layer {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.parallax__layer--base {
+  -webkit-transform: translateZ(0);
+          transform: translateZ(0);
+}
+
+.parallax__layer--back {
+  -webkit-transform: translateZ(-1px) scale(3);
+          transform: translateZ(-1px) scale(3);
+}
+
+.parallax__group {
+  position: relative;
+  height: 100vh;
+  -webkit-transform-style: preserve-3d;
+          transform-style: preserve-3d;
+}
+
+/* The Modal (background) */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: #00000058;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+/* Modal Content Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 20% auto;
+  padding: 1%;
+  border: 2px solid #88888831;
+  width: 75%;
+}
