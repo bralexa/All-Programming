@@ -187,6 +187,9 @@ function createSearchCard(symbol, name, id) {//מייצר קרטיסיה במק�
 function createMiniCards() {//מייצר חלון עם שמות של מטבעות וכפתורים להסרתם. עובד בסנכרון עם דפ ראשי ולוקלסטורג׳ איפה מטבעות שנבחרו נשמרים
     var modal = document.getElementById("myModal");
     modal.style.display = "block";
+    $('html, body, #myModal').animate({
+        scrollTop: 0
+    });
 
     var header = '<h5 class="text-center"><strong>Live reports can be produced for&nbsp;5&nbsp;coins&nbsp;only.</br>Please review your choices.</strong></h5>';
     $('.modal-content').append(header);
@@ -219,7 +222,7 @@ function createMiniCards() {//מייצר חלון עם שמות של מטבעו�
         var string = '<div class="container col-sm-10 box-shaded">';
         string += '<div class="row d-flex align-items-center justify-content-between"><div class="container col"><p>' + symbol + '</p>';
         string += '</div><div><div>';
-        string += '<label><input type="checkbox" class="minicheckbox" onchange="handleMiniSwitch(this, this.name)" name="' + id + '" id="minicheckbox_' + id + '"><span></span></label></div></div></div>';
+        string += '<label><input type="checkbox" class="minicheckbox" checked data-label-text="Live report" onchange="handleMiniSwitch(this, this.name)" name="' + id + '" id="minicheckbox_' + id + '"><span></span></label></div></div></div>';
         
         $('.modal-content').append(string);
         // $('[name="minicheckbox_' + id + '"]').bootstrapSwitch();
@@ -266,6 +269,9 @@ function aboutMe() {//מייצר כרטיסיה עם מידה עבורי
     string += '<div class="card-header box-shaded"><h6 class="text-center"><strong>Contact me:</strong></h6><p class="card text-center">Mobile:</br><a href="tel:+972548887511">+972548887511</a></p><p class="card text-center">E-mail:</br><a class="text-center" href="mailto:nive.bald.man@gmail.com">nice.bald.man@gmail.com</a></p></div></div></div>';
     $('.for_insert').empty();
     $('.for_insert').append(string);
+    $('html, body, .parallax').animate({
+        scrollTop: 0
+    });
 
 }
 function handleSwitch(checkbox, checkedCoin) {//במקרא של בחירת המטבעה בודק תנאים ושמר בלוקלסטורג׳ או מוחק ממנו
@@ -541,6 +547,9 @@ function chartCoins() {//מייצר דף עם גרף מטבעות שנבחרו. 
     };
     $(".for_insert").empty();
     $(".for_insert").CanvasJSChart(options);
+    $('html, body, .parallax').animate({
+        scrollTop: 0
+    });
     var chart = $(".for_insert").CanvasJSChart();
     if (coinsForLive != undefined || coinsForLive.length != 0) {
         var i = setInterval(() => {
