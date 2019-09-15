@@ -17,13 +17,15 @@ $(document).ready(function () { //מייצר ראש הדף
     subheader += '<div class="box col-sm-6 d-flex align-items-center justify-content-between">';
     subheader += '<input type="text" id="searchInput" class="form-control box-shaded" placeholder="Find your favorite coin">';
     subheader += '<button type="button" class="btn btn-outline-secondary box-shaded mybutton" onclick="coinSearcher()">Search!</button></div></div>';
+    
     $('.sub-header').html(subheader);
+    
     getCoins();
     filter();
 });
 function getCoins() { // מייצר רשימת מטבעות. מייצר 2 מערכים שבתוכם שומר רשימה כולה לחיפוס מתקדם ורשימה של 100 לדף ראשי. בודק אם נשמר משהוא בלוקלסטורג׳. במקרא של ניטוק מציג הודעה.
     $('.for_insert').empty();
-
+    
     var counter = 0;
     var i = setInterval(function () {// מייצר פרוגרס בר 
 
@@ -61,6 +63,8 @@ function getCoins() { // מייצר רשימת מטבעות. מייצר 2 מער
             };
         },
         complete: function () {
+            var message = '<section class="container align-items-center text-center"><h5>Toggle switch for live graph</h5></section>';
+            $('.for_insert').append(message);
             for (let i = 0; i < 100; i++) {
                 var element = viewArray[i];
                 var id = element[0];
@@ -165,6 +169,7 @@ function createCard(symbol, name, id) {//מייצר קרטיסיה של מטבע
     string += '<label><input type="checkbox"  onchange="handleSwitch(this, this.name)" name="' + id + '" id="checkbox_' + id + '"><span></span></label></div></div></div>';
     string += '<div><p class="fullname">' + name + '</p></div><div class="row info" id="progressrow_' + id + '"></div><div class="row info" id="inforow_' + id + '"></div>';
     string += '<div class="text-center"><button type="button" class="btn btn-outline-secondary box-shaded" onclick="moreInfo(this.id)" id="' + id + '">More info</button></div></div>';
+    
     $('.for_insert').append(string);
 
 }
