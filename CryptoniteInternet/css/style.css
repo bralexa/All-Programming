@@ -9,7 +9,8 @@ body {
 }
 
 .card {
-  margin-top: 1%;
+  margin-top: 2px;
+  margin-left: auto;
 }
 
 .card:hover {
@@ -19,7 +20,7 @@ body {
 
 .container {
   background-color: rgba(255, 255, 255, 0.6);
-  margin: 1% auto;
+  /* margin: 1% auto; */
 }
 
 .header, .box-shaded {
