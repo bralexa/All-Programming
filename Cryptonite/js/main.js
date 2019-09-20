@@ -40,9 +40,9 @@ function getCoins() { // מייצר רשימת מטבעות. מייצר 2 מער
         url: all_coins_url,
         async: true,
         success: function (data) {
-            data.forEach((value) => { coinsArray.push([value.id, value.name, value.symbol]);});
+            data.forEach((value) => { coinsArray.push([value.id, value.name, value.symbol]); });
             coins = data.splice(500, 100);
-            coins.forEach((value) => { viewArray.push([value.id, value.name, value.symbol]);});
+            coins.forEach((value) => { viewArray.push([value.id, value.name, value.symbol]); });
         },
         error: function () {
             var modal = document.getElementById("myModal");
@@ -311,7 +311,6 @@ function closeModal() {//סגירת חלון מודל
     modal.style.display = "none";
 }
 function coinSearcher() {//חיפוס מטבעה בלחיצת כפתור במערך כללי של המטבעות לפי שם או סימן או מזהה של המטבעה ומציג אותה. במקרא שלא נמצע מציג הודעה. מחשב מצבים של חיפוס ריק.
-    var counter = 0;
     var modal = document.getElementById("myModal");
     var value = $("#searchInput").val().toLowerCase();
     if (value == '') {
@@ -332,19 +331,19 @@ function coinSearcher() {//חיפוס מטבעה בלחיצת כפתור במע�
                 createSearchCard(symbol, name, id);
                 checkLocalstorage();
                 counter++;
+            } else {
+                modal.style.display = "block";
+                var message = '<div><h5 class="text-center">Sorry, your search returned no results!</h5></div > ';
+                $('.modal-content').html(message);
             }
         }
     }
-    if (counter == 0) {
-        modal.style.display = "block";
-        var message = '<div><h5 class="text-center">Sorry, your search returned no results!</h5></div > ';
-        $('.modal-content').html(message); 
-    }
     window.onclick = function (event) {
-            if (event.target == modal) {
-                closeModal();
-            }
-        };
+        if (event.target == modal) {
+            closeModal();
+            this.getCoins();
+        }
+    };
 }
 function chartCoins() {//מייצר דף עם גרף מטבעות שנבחרו. מייצג רק את מטבעות שיש עבורם אינפורמציה בסרבר. בשם מטבעה מציג שם שלם שלה.
     var coinsForLive = [];
