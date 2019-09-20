@@ -31,6 +31,7 @@ body {
 .first{
         margin-top: 2%;
         width: 85%;
+        border: 5px double rgba(0, 0, 0, 0.44);
 }
 
 .sub-header{

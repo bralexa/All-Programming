@@ -336,7 +336,7 @@ function liveReports() {//בודק אם נבחרו יותר מ5 מטבעות. א
         var modal = document.getElementById("myModal");
         modal.style.display = "block";
 
-        var message = '<div class="container"><h5 class="text-center">No coins chosen!</h5></div > ';
+        var message = '<div><h5 class="text-center">No coins chosen!</h5></div > ';
         $('.modal-content').html(message);
         window.onclick = function (event) {
             if (event.target == modal) {
