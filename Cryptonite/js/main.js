@@ -23,6 +23,9 @@ $(document).ready(function () { //מייצר ראש הדף
 });
 function getCoins() { // מייצר רשימת מטבעות. מייצר 2 מערכים שבתוכם שומר רשימה כולה לחיפוס מתקדם ורשימה של 100 לדף ראשי. בודק אם נשמר משהוא בלוקלסטורג׳. במקרא של ניטוק מציג הודעה.
     $('.for_insert').empty();
+    $('html, body, .parallax').animate({
+        scrollTop: 0
+    });
     var counter = 0;
     var i = setInterval(function () {// מייצר פרוגרס בר 
         var percent = '<div class="shadow-lg p-3 mb-0 bg-white rounded" id="overallProgress"><h4 class="text-center">Loading coins...   ' + counter + '%</h4><div class="box progress" style="height: 2rem;"><div class="progress-bar progress-bar-striped progress-bar-animated" style="width:' + counter + '%; height: 100%;"></div></div></div>';
@@ -341,6 +344,7 @@ function coinSearcher() {//חיפוס מטבעה בלחיצת כפתור במע�
     window.onclick = function (event) {
         if (event.target == modal) {
             closeModal();
+            $("#searchInput").val('');
             this.getCoins();
         }
     };
