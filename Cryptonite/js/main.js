@@ -383,6 +383,9 @@ function coinSearcher() {//חיפוס מטבעה בלחיצת כפתור במע�
                 var name = element[1];
                 var symbol = element[2];
                 $('.for_insert').empty();
+                $('html, body, .parallax').animate({
+                    scrollTop: 0
+                });
                 createSearchCard(symbol, name, id);
                 checkLocalstorage();
                 counter++;
@@ -556,6 +559,9 @@ function filter() {// עושה פילתר במטבעות שמוצגות בדף �
         $(".for_insert .card").filter(function () {
             $(this).toggle($(this).attr('name').toLowerCase().indexOf(value) > -1);
         });
+        if (value == '') {
+            getCoins();
+        }
     });
 
 
