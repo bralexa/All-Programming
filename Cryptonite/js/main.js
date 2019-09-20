@@ -8,13 +8,13 @@ var viewArray = [];
 var coinsArray = [];
 
 $(document).ready(function () { //מייצר ראש הדף
-    var header = '<h1 class="header-crypto display-7 text-fluid"><strong>CRYPTONITE</strong></h1><p class="text-center font-weight-light" > cryptocoins online search engine</p >';
+    var header = '<h1 class="header-crypto"><strong>CRYPTONITE</strong></h1><p class="text-center font-weight-light">cryptocoins online search engine</p >';
     $('.first').html(header);
-    var subheader = '<div class="row"><div class="box col-sm-6 d-flex align-items-center justify-content-between">';
+    var subheader = '<div class="row"><div class="box col-md-6 d-flex align-items-center justify-content-between">';
     subheader += '<button type="button" class="btn btn-outline-secondary box-shaded mybutton" value="Reload Page" onClick="document.location.reload(true)">All coins</button>';
-    subheader += '<button type="button" class="btn btn-outline-secondary box-shaded" onClick="liveReports()">Livereports</button>';
+    subheader += '<button type="button" class="btn btn-outline-secondary box-shaded" onClick="liveReports()">Live prices</button>';
     subheader += '<button type="button" class="btn btn-outline-secondary box-shaded mybutton" onClick="aboutMe()">About me</button></div >';
-    subheader += '<div class="box col-sm-6 d-flex align-items-center justify-content-between">';
+    subheader += '<div class="box col-md-6 d-flex align-items-center justify-content-between">';
     subheader += '<input type="text" id="searchInput" class="form-control box-shaded" placeholder="Find your favorite coin">';
     subheader += '<button type="button" class="btn btn-outline-secondary box-shaded mybutton" onclick="coinSearcher()">Search!</button></div></div>';
     
@@ -29,7 +29,7 @@ function getCoins() { // מייצר רשימת מטבעות. מייצר 2 מער
     var counter = 0;
     var i = setInterval(function () {// מייצר פרוגרס בר 
 
-        var percent = '<div class="card box-shaded" id="overallProgress"><h4 class="text-center">Loading coins...   ' + counter + '%</h4><div class="box progress" style="height: 2rem;"><div class="progress-bar progress-bar-striped progress-bar-animated" style="width:' + counter + '%; height: 100%;"></div></div></div>';
+        var percent = '<div class="shadow-lg p-3 mb-0 bg-white rounded" id="overallProgress"><h4 class="text-center">Loading coins...   ' + counter + '%</h4><div class="box progress" style="height: 2rem;"><div class="progress-bar progress-bar-striped progress-bar-animated" style="width:' + counter + '%; height: 100%;"></div></div></div>';
         $('.forprogress-bar').html(percent);
         counter++;
         if (counter === 100) {
@@ -63,8 +63,6 @@ function getCoins() { // מייצר רשימת מטבעות. מייצר 2 מער
             };
         },
         complete: function () {
-            var message = '<section class="container align-items-center text-center"><h5>Toggle switch for live graph</h5></section>';
-            $('.for_insert').append(message);
             for (let i = 0; i < 100; i++) {
                 var element = viewArray[i];
                 var id = element[0];
@@ -163,9 +161,9 @@ function clearInfo(id) {//מוחק מידע נוספת מהקרטיסיה
     $('#inforow_' + id).empty();
 }
 function createCard(symbol, name, id) {//מייצר קרטיסיה של מטבעה
-    var string = '<div class="card col-sm-4 box-shaded" name="' + name + '" id="container_' + symbol + '">';
+    var string = '<div class="card col-md-4 shadow-lg p-3 mb-0 bg-white rounded" name="' + name + '" id="container_' + symbol + '">';
     string += '<div class="row justify-content-between name=""><div class="container col"><h2>' + symbol + '</h2>';
-    string += '</div><div class="custom-control custom-switch"><div class="checkbox checkbox-slider--b-flat checkbox-slider-md">';
+    string += '</div><div class="custom-control custom-switch" title="Toggle switch for live prices"><div class="checkbox checkbox-slider--b-flat checkbox-slider-md">';
     string += '<label><input type="checkbox"  onchange="handleSwitch(this, this.name)" name="' + id + '" id="checkbox_' + id + '"><span></span></label></div></div></div>';
     string += '<div><p class="fullname">' + name + '</p></div><div class="row info" id="progressrow_' + id + '"></div><div class="row info" id="inforow_' + id + '"></div>';
     string += '<div class="text-center"><button type="button" class="btn btn-outline-secondary box-shaded" onclick="moreInfo(this.id)" id="' + id + '">More info</button></div></div>';
@@ -175,7 +173,7 @@ function createCard(symbol, name, id) {//מייצר קרטיסיה של מטבע
 }
 function createSearchCard(symbol, name, id) {//מייצר קרטיסיה במקרה של חיפוס בכלל המטבעות
 
-    var string = '<div class="card col-sm-4 box-shaded" name="' + id + '" id="container_' + symbol + '">';
+    var string = '<div class="card col-md-4 box-shaded" name="' + id + '" id="container_' + symbol + '">';
     string += '<div class="row justify-content-between name="' + id + '"><div class="container col"><h2>' + symbol + '</h2>';
     string += '</div><div class="custom-control custom-switch"><div class="checkbox checkbox-slider--b-flat checkbox-slider-md">';
     string += '<label><input type="checkbox"  onchange="handleSwitch(this, this.name)" name="' + id + '" id="checkbox_' + id + '"><span></span></label></div></div></div>';
@@ -217,14 +215,14 @@ function createMiniCards() {//מייצר חלון עם שמות של מטבעו�
     }
 
     function createMiniContent(id, symbol) {
-        var string = '<div class="container col-sm-10 box-shaded">';
+        var string = '<div class="container col-sm-10 shadow p-3 mb-0 bg-white rounded">';
         string += '<div class="row d-flex align-items-center justify-content-between"><div class="container col"><p>' + symbol + '</p>';
         string += '</div><div class="custom-control custom-switch"><div class="checkbox checkbox-slider--b-flat checkbox-slider-md">';
         string += '<label><input type="checkbox" checked onchange="handleSwitch(this, this.name)" name="' + id + '" id="minicheckbox_' + id + '"><span></span></label></div></div></div>';
 
         $('.modal-content').append(string);
     }
-    var button = '<div class="container text-center"><button type="button" class="btn btn-outline-secondary box-shaded" onClick="closeModal()">Save an close</button></div>';
+    var button = '<div class="text-center"><button type="button" class="btn btn-outline-secondary box-shaded" onClick="closeModal()">Save an close</button></div>';
     $('.modal-content').append(button);
     window.onclick = function (event) {
         if (event.target == modal) {
@@ -241,9 +239,9 @@ function closeModal() {//סוגר חלון מודל
 
 }
 function aboutMe() {//מייצר כרטיסיה עם מידה עבורי
-    var string = '<div class="container col-sm-6 align-items-center box-shaded"><div class="container"><h3 class="text-center"><strong>Alexander Bruder</strong></h3>';
-    string += '<div class="container col-sm-6 text-center"><img class="box-shaded img-fluid" src="img/Me.jpg"></div><h5 class="text-center">Full-Stack Dev</h5>';
-    string += '<div class="card-header box-shaded"><h6 class="text-center"><strong>Contact me:</strong></h6><p class="card text-center">Mobile:</br><a href="tel:+972548887511">+972548887511</a></p><p class="card text-center">E-mail:</br><a class="text-center" href="mailto:nive.bald.man@gmail.com">nice.bald.man@gmail.com</a></p></div></div></div>';
+    var string = '<div class="container col-md-6 align-items-center box-shaded"><h3 class="text-center"><strong>Alexander Bruder</strong></h3>';
+    string += '<div class="d-flex justify-content-center"><img class="shadow-lg p-3 mb-2 bg-white rounded img-fluid" src="img/Me.jpg"></div><h5 class="text-center">Full-Stack Dev</h5>';
+    string += '<div class="card-header"><h6 class="text-center"><strong>Contact me:</strong></h6><p class="text-center">Mobile:</br><a href="tel:+972548887511">+972548887511</a></p><p class="text-center">E-mail:</br><a class="text-center" href="mailto:nive.bald.man@gmail.com">nice.bald.man@gmail.com</a></p></div></div></div>';
     $('.for_insert').empty();
     $('.for_insert').append(string);
     $('html, body, .parallax').animate({
@@ -367,7 +365,7 @@ function coinSearcher() {//חיפוס מטבעה בלחיצת כפתור במע�
         var modal = document.getElementById("myModal");
         modal.style.display = "block";
 
-        var message = '<div class="container"><h5 class="text-center">Please enter id, short symbol or name of coin!</h5</div > ';
+        var message = '<div><h5 class="text-center">Please enter id, short symbol or name of coin!</h5</div > ';
         $('.modal-content').html(message);
         window.onclick = function (event) {
             if (event.target == modal) {
@@ -398,7 +396,7 @@ function coinSearcher() {//חיפוס מטבעה בלחיצת כפתור במע�
         var modal = document.getElementById("myModal");
         modal.style.display = "block";
 
-        var message = '<div class="container"><h5 class="text-center">Sorry, your search returned no results!</h5></div > ';
+        var message = '<div><h5 class="text-center">Sorry, your search returned no results!</h5></div > ';
         $('.modal-content').html(message);
         window.onclick = function (event) {
             if (event.target == modal) {
