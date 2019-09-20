@@ -40,9 +40,9 @@ function getCoins() { // מייצר רשימת מטבעות. מייצר 2 מער
         url: all_coins_url,
         async: true,
         success: function (data) {
-            data.forEach((value) => { coinsArray.push([value.id, value.name, value.symbol]) });
+            data.forEach((value) => { coinsArray.push([value.id, value.name, value.symbol]);});
             coins = data.splice(500, 100);
-            coins.forEach((value) => { viewArray.push([value.id, value.name, value.symbol]) });
+            coins.forEach((value) => { viewArray.push([value.id, value.name, value.symbol]);});
         },
         error: function () {
             var modal = document.getElementById("myModal");
@@ -85,7 +85,7 @@ function moreInfo(id) {//מייצר מידה נוספת באת בקשתה. שו�
         }
     }, 40);
     if (checkSessionStorage(id)) {
-        var string = '<div class="container box-shaded col d-flex align-items-center justify-content-between><div class="container col"><img src = "' + window.sessionStorage.getItem(id)[0] + '" class="logo-img" ></div><div class="container box-shaded col moreinfo text-center"><p><strong>Price:</strong></p><h5>' + window.sessionStorage.getItem(id)[2] + '<strong> €</strong></h5><h5>' + window.sessionStorage.getItem(id)[1] + '<strong> $</strong></h5><h5>' + window.sessionStorage.getItem(id)[3] + '<strong> ₪</strong></h5></div></div>'
+        var string = '<div class="container box-shaded col d-flex align-items-center justify-content-between><div class="container col"><img src = "' + window.sessionStorage.getItem(id)[0] + '" class="logo-img" ></div><div class="container box-shaded col moreinfo text-center"><p><strong>Price:</strong></p><h5>' + window.sessionStorage.getItem(id)[2] + '<strong> €</strong></h5><h5>' + window.sessionStorage.getItem(id)[1] + '<strong> $</strong></h5><h5>' + window.sessionStorage.getItem(id)[3] + '<strong> ₪</strong></h5></div></div>';
         $('#inforow_' + id).html(string);
         $('#' + id).text('Close info');
         $('#' + id).attr({
@@ -184,7 +184,6 @@ function createMiniCards() {//מייצר חלון עם שמות של מטבעו�
                 if (element[0] === values[i]) {
                     var symbol = element[1];
                     var id = element[0];
-
                 }
             }
             createMiniContent(id, symbol);
@@ -207,7 +206,7 @@ function createMiniCards() {//מייצר חלון עם שמות של מטבעו�
 
         }
 
-    }
+    };
 
 }
 function closeModal() {//סוגר חלון מודל 
@@ -273,7 +272,7 @@ function checkSessionStorage(id) {//בודק אם מידה עבור מטבעה �
     if (sessionStorage.length > 0) {
         keys = Object.keys(localStorage),
             i = keys.length;
-        for (i; i > 0; i--) {
+        for (this.i; i > 0; i--) {
             if (sessionStorage.getItem(keys[i]) == id) {
                 return true;
             } else {
@@ -313,18 +312,12 @@ function closeModal() {//סגירת חלון מודל
 }
 function coinSearcher() {//חיפוס מטבעה בלחיצת כפתור במערך כללי של המטבעות לפי שם או סימן או מזהה של המטבעה ומציג אותה. במקרא שלא נמצע מציג הודעה. מחשב מצבים של חיפוס ריק.
     var counter = 0;
-    let value = $("#searchInput").val().toLowerCase();
+    var modal = document.getElementById("myModal");
+    var value = $("#searchInput").val().toLowerCase();
     if (value == '') {
-        var modal = document.getElementById("myModal");
         modal.style.display = "block";
         var message = '<div><h5 class="text-center">Please enter id, short symbol or name of coin!</h5</div > ';
         $('.modal-content').html(message);
-        window.onclick = function (event) {
-            if (event.target == modal) {
-                closeModal();
-            }
-        };
-        return;
     } else {
         for (let j = 0; j < coinsArray.length; j++) {
             var element = coinsArray[j];
@@ -343,16 +336,15 @@ function coinSearcher() {//חיפוס מטבעה בלחיצת כפתור במע�
         }
     }
     if (counter == 0) {
-        var modal = document.getElementById("myModal");
         modal.style.display = "block";
         var message = '<div><h5 class="text-center">Sorry, your search returned no results!</h5></div > ';
-        $('.modal-content').html(message);
-        window.onclick = function (event) {
+        $('.modal-content').html(message); 
+    }
+    window.onclick = function (event) {
             if (event.target == modal) {
                 closeModal();
             }
         };
-    }
 }
 function chartCoins() {//מייצר דף עם גרף מטבעות שנבחרו. מייצג רק את מטבעות שיש עבורם אינפורמציה בסרבר. בשם מטבעה מציג שם שלם שלה.
     var coinsForLive = [];
