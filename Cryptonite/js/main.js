@@ -297,7 +297,7 @@ function liveReports() {//בודק אם נבחרו יותר מ5 מטבעות. א
     if (localStorage.length == 0) {
         var modal = document.getElementById("myModal");
         modal.style.display = "block";
-        var message = '<div><h5 class="text-center">No coins chosen!</h5></div > ';
+        var message = '<div><h5 class="text-center">No coins chosen!</br>Toogle switch of favorite coin for live prices.</h5></div > ';
         $('.modal-content').html(message);
         window.onclick = function (event) {
             if (event.target == modal) {
@@ -333,13 +333,14 @@ function coinSearcher() {//חיפוס מטבעה בלחיצת כפתור במע�
                 });
                 createSearchCard(symbol, name, id);
                 checkLocalstorage();
-                counter++;
-            } else {
-                modal.style.display = "block";
-                var message = '<div><h5 class="text-center">Sorry, your search returned no results!</h5></div > ';
-                $('.modal-content').html(message);
+                $("#searchInput").val('');
+                return;
             }
         }
+        modal.style.display = "block";
+        var message = '<div><h5 class="text-center">Sorry, your search returned no results!</h5></div > ';
+        $('.modal-content').html(message);
+
     }
     window.onclick = function (event) {
         if (event.target == modal) {
