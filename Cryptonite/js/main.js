@@ -33,7 +33,7 @@ function getCoins() { // מייצר רשימת מטבעות. מייצר 2 מער
         counter++;
         if (counter === 100) {
             clearInterval(i);
-            var message = '<div class="card box-shaded" id="overallProgress"><h4 class="text-center">Still waiting....</h4><div class="box progress" style="height: 2rem;"><div class="progress-bar progress-bar-striped progress-bar-animated" style="width:100%; height: 100%;"></div></div></div>';
+            var message = '<div class="shadow-lg p-3 mb-0 bg-white rounded" id="overallProgress"><h4 class="text-center">Still waiting....</h4><div class="box progress" style="height: 2rem;"><div class="progress-bar progress-bar-striped progress-bar-animated" style="width:100%; height: 100%;"></div></div></div>';
             $('.forprogress-bar').html(message);
         }
     }, 30);
