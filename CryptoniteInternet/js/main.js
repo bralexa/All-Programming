@@ -163,7 +163,7 @@ function createCard(symbol, name, id) {//מייצר קרטיסיה של מטבע
     var string = '<div class="card col-sm-4 box-shaded" name="' + name + '" id="container_' + symbol + '">';
     string += '<div class="row align-items-center justify-content-between name=""><div class="container col"><h2>' + symbol + '</h2>';
     string += '</div><div>';
-    string += '<div class="container col"><label><input type="checkbox" checked data-label-text="Live report" onchange="handleSwitch(this, this.name)" name="' + id + '" id="checkbox_' + id + '"><span></span></label></div></div></div>';
+    string += '<div class="container col"><label><input type="checkbox" data-label-text="Live graph" onchange="handleSwitch(this, this.name)" name="' + id + '" id="checkbox_' + id + '"><span></span></label></div></div></div>';
     string += '<div><p class="fullname">' + name + '</p></div><div class="row info" id="progressrow_' + id + '"></div><div class="row info" id="inforow_' + id + '"></div>';
     string += '<div class="text-center"><button type="button" class="btn btn-outline-secondary box-shaded" onclick="moreInfo(this.id)" id="' + id + '">More info</button></div></div>';
     $('.for_insert').append(string);

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Weather</title>
+    <link rel="stylesheet" href="resources/bootstrap.min.css">
+    <link rel="stylesheet" href="weather-icons-master/css/weather-icons.min.css">
+    <link rel="stylesheet" href="style/style.css">
+</head>
+
+<body>
+    <header class="container search col-md-12 d-flex justify-content-end">
+        <!-- <div class="form-group"> -->
+            <!-- <div class="input-group mb-3">
+                <span> -->
+                    
+                    <input type="button" id="search" class="btn btn-link text-info"></input>
+                    <input id="inp" type="search" aria-describedby="button-addon2" class="box form-control bg-none border-0 col-md-3" placeholder="Search another city"></input>
+                <!-- </span>
+            </div> -->
+        <!-- </div> -->
+        
+    </header>
+    <section class="row">
+
+        <section id="myGrid" class="container col-md-12 order-sm-2">
+            <div class="grid-container">
+                <div id="current" class="grid-item">
+                    <div><span id="cityName"></span></div>
+                    <small>today</small>
+                    <h1><span class="dayTemp"></span>°</h1>
+                    <h5 id="sunnyRainy"></h5>
+                </div>
+                <div id="day1" class="grid-item">
+                    <h5 class="weekDay"></h5>
+                    <i class="wi wi-day-sunny"></i>
+                    <h3><span class="dayTemp"></span>°/<span class="nightTemp"></span>°</h3>
+                    <h5></h5>
+                </div>
+                <div id="day2" class="grid-item">
+                    <h5 class="weekDay"></h5>
+                    <i class="wi wi-day-sunny"></i>
+                    <h3><span class="dayTemp"></span>°/<span class="nightTemp"></span>°</h3>
+                    <h5></h5>
+                </div>
+                <div id="day3" class="grid-item">
+                    <h5 class="weekDay"></h5>
+                    <i class="wi wi-day-sunny"></i>
+                    <h3><span class="dayTemp"></span>°/<span class="nightTemp"></span>°</h3>
+                    <h5></h5>
+                </div>
+            </div>
+        </section>
+        <section class="img arrow container col-md-9 order-sm-1">
+            <input type="image" src="/images/down.png" alt="Submit" width="30px">
+        </section>
+    </section>
+
+
+    <script src="resources/jquery.min.js"></script>
+    <script src='code/main.js'></script>
+</body>
+
+</html>
