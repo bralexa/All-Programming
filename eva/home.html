@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+    <title>EVA System</title>
+</head>
+
+<body>
+    <div class="container text-center">
+        <img src="eva.png" alt="">
+        <div class="headermessage">
+            <h3>ברוכים הבאים ליועצת חכמה למשקיעים</h3>
+        </div>
+        
+        
+    </div>
+   
+    
+    <section class="container">
+        <div class="container col submitform">
+            <div class="container text-center col-sm-10">
+                <div dir="rtl" class="container col text-center">הכנס הסתברות לשוק רווי: </div><input type="number"
+                        placeholder="בין 0 ל 1" id="x" dir="rtl" required>
+            </div>
+
+            <div class="container col option">
+                <h3 class="container col text-right">אופציה 1</h3>
+                <div class="box col d-flex align-content-between">
+
+                    <div class="box col d-flex align-items-center">
+                        <p dir="rtl" class="text-center">רווח בשוק רווי: <input type="number"
+                                placeholder="באלפי שקלים" id="a" required></p>
+                    </div>
+                    <div class="container col">
+                        <p dir="rtl" class="text-center">הפסד בשוק לא רווי: <input type="number"
+                                placeholder="באלפי שקלים" id="b" required></p>
+                    </div>
+
+                </div>
+            </div>
+            <div class="container col option">
+                <h3 class="container col text-right">אופציה 2</h3>
+                <div class="box col d-flex align-content-between">
+                    <div class="box col d-flex align-items-center">
+                        <p dir="rtl" class="text-center">רווח בשוק רווי: <input type="number"
+                                placeholder="באלפי שקלים" id="c" required></p>
+
+                    </div>
+                    <div class="container col">
+                        <p dir="rtl" class="text-center">הפסד בשוק לא רווי: <input type="number"
+                                placeholder="באלפי שקלים" id="d" required></p>
+                    </div>
+
+                </div>
+            </div>
+            <div class="container col option">
+                <h3 class="container col text-right">אופציה 3</h3>
+                <div class="box col d-flex align-content-between">
+                    <div class="box col d-flex align-items-center">
+                        <p dir="rtl" class="text-center">רווח בשוק רווי: <input type="number"
+                                placeholder="באלפי שקלים" id="e" required></p>
+
+                    </div>
+                    <div class="container col">
+                        <p dir="rtl" class="text-center">הפסד בשוק לא רווי: <input type="number"
+                                placeholder="באלפי שקלים" id="f" required></p>
+                    </div>
+                </div>
+            
+            
+            </div>
+
+            
+
+
+
+        </div>
+        
+        <div class="box col d-flex align-content-between controlbuttons">
+        
+            <div class="container col">
+               <button class="btn btn-primary submit" type="submit" id="submit" onclick="getElements()">לחשב</button>
+            </div>
+            <div class="container col text-right">
+                <button class="btn btn-secondary clear" type="submit" id="clear" onclick="clearAll()">ניקוי שדות</button>
+            </div>
+        
+        </div>
+        
+        
+        
+        
+    </section>
+
+
+
+
+
+</body>
+<script src="script.js"></script>
+<script src="jquery-3.2.1.min.js"></script>
+</html>
