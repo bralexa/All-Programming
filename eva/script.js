@@ -1,5 +1,10 @@
 var numbersArray = [];
 var resultsArray = [];
+var maxProfitArray = [];
+var minLostArray = [];
+var maxprofit;
+var minlost;
+var bonus;
 var finalDescision = [];
 function getElements() {
     numbersArray.push(document.getElementById("a").value);
@@ -46,6 +51,8 @@ function mathematics(numbersArray) {
     function checkOptions(a, b, x, option) {
         var result = (x * a) + ((1 - x) * b * (-1));
         resultsArray[option] = result;
+        maxProfitArray[option] = a;
+        minLostArray[option] = b;
     }
 
     function checkOptionOne() {
@@ -98,12 +105,12 @@ function mathematics(numbersArray) {
 
     }
 
-    makeDescision(resultsArray);
+    makeDescision(resultsArray, x);
 
 }
 
 
-function makeDescision(resultsArray) {
+function makeDescision(resultsArray, x) {
     if (resultsArray[1] > resultsArray[2] && resultsArray[1] > resultsArray[3]) {
         finalDescision[0] = 1;
         finalDescision[1] = resultsArray[1];
@@ -117,12 +124,34 @@ function makeDescision(resultsArray) {
         }
     }
 
+    if (maxProfitArray[1] > maxProfitArray[2] && maxProfitArray[1] > maxProfitArray[3]) {
+        maxprofit = maxProfitArray[1];
+    } else {
+        if (maxProfitArray[2] > maxProfitArray[1] && maxProfitArray[2] > maxProfitArray[3]) {
+            maxprofit = maxProfitArray[2];
+        } else {
+            maxprofit = maxProfitArray[3];
+        }
+    }
+
+    if (minLostArray[1] < minLostArray[2] && minLostArray[1] < minLostArray[3]) {
+        minlost = minLostArray[1];
+    } else {
+        if (minLostArray[2] < minLostArray[1] && minLostArray[2] < minLostArray[3]) {
+            minlost = minLostArray[2];
+        } else {
+            minlost = minLostArray[3];
+        }
+    }
+
+    bonus = x * maxprofit - finalDescision[1];
+
     if (finalDescision[1] <= 0) {
         var message = '<h4 dir="rtl" class="text-center">לא מומלץ להשקיה באף אחת מהאופציות</h4>';
         showResult(message);
     } else {
-        var message = '<h4 dir="rtl" class="text-center">תוחלת הרווח הגבוהה ' + finalDescision[1] + ' אלף ש״ח התקבלה באופציה ' + finalDescision[0];
-        showResult(message)
+        var message = '<h4 dir="rtl" class="text-center">תוחלת הרווח הגבוהה ' + finalDescision[1] + ' אלף ש״ח התקבלה באופציה ' + finalDescision[0]+ '</br>סכום מקסימלי לתשלום ליועץ עבור מידע מלא על מצב השוק הוא ' + bonus + ' אלף ש״ח';
+        showResult(message);
     }
     
 
