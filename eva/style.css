@@ -6,6 +6,11 @@ h3, button {
     color: mediumblue;
 }
 
+
+input {
+    max-width: 135px;
+}
+
 img {
     max-width: 200px;
 }
