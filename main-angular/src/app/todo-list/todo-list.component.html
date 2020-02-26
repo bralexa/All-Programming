@@ -1,0 +1,19 @@
+<h3>Home Mangement</h3>
+<h5>Todo List</h5>
+
+<table class="table"  *ngIf='(this.todoList.length > 0)'>
+  <tr>
+    <th>#</th>
+    <th>Description</th>
+    <th>Date</th>
+    <th>Name</th>
+    
+  </tr>
+ 
+ <tr *ngFor="let t of todoList ; let i = index" >
+    <td>{{i + 1}}</td>
+    <td>{{t.description}}</td>
+    <td>{{(t.date | date )}}</td>
+    <td>{{t.fMember.nickname}}</td>
+  </tr> 
+</table>

@@ -1,0 +1,35 @@
+<h3>AddTask</h3>
+
+
+<div class="input-group mb-3">
+    <div class="input-group-prepend">
+      <label class="input-group-text" for="inputGroupSelect01">Description</label>
+    </div>
+    <input type="text" class="form-control"
+    aria-label="Task description here"
+    placeholder='Task description here'
+    [(ngModel)]="task.description" >
+  </div>
+
+  <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <label class="input-group-text" for="inputGroupSelect01">Family Member</label>
+      </div>
+      <select class="custom-select" id="inputGroupSelect01" #familyMembersOption  (change)="setFamilyMember($event , familyMembersOption.value)" >
+          <option selected  value='null'>Select family member...</option>
+          <option *ngFor="let fm of familyMembers ; let i = index" value={{fm.id}}>{{fm.name}}</option>
+      </select>
+    </div>
+<!-- <div class="row">
+  <div class="col">
+    <div ngbDropdown class="d-inline-block family-member-select">
+      <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>{{fMember.nickname}}</button>
+      <div ngbDropdownMenu aria-labelledby="dropdownBasic1"  >
+          <button class="dropdown-item" *ngFor="let fm of familyMembers ; let i = index" (click)='setSelectedFamilyMember(fm.id , fm.nickname)'>{{fm.name}}</button>
+
+      </div>
+    </div>
+  </div>
+</div> -->
+
+<button type="button" class="btn btn-outline-success"  (click)='addTodoList()'>Add Task</button>
