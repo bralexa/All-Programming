@@ -1,0 +1,67 @@
+body, #amountInput{
+    text-align: center;
+    /* border: 1px solid black; */
+}
+
+div{
+    /* padding: 4px; */
+    /* border: 1px solid black; */
+}
+
+#resultsArea{
+  display: none;
+}
+
+.resultDiv{
+  text-align: center;  
+  width: 99%;
+  margin: 2px auto;
+}
+
+#contactForm input{
+  margin: 2px;
+  display: inline-block;
+}
+
+.option:hover {
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.742);
+  z-index: 1;
+}
+h3, button {
+    color: mediumblue;
+}
+
+
+input, #amountInput {
+    /* max-width: 135px; */
+    margin: 1% auto;
+}
+
+img {
+    max-width: 200px;
+}
+/* h1 {
+    margin-top: 1%;
+} */
+
+#contactForm, .resultDiv, #resultsArea {
+    /* border: solid 1px black; */
+    /* position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    
+    height: 100%; */
+    width: 80%;
+    margin: 3% auto;
+    padding: auto;
+    border-radius: 1%;
+    box-shadow: 0 0 0 15px rgba(0, 0, 0, 0.281);
+    box-sizing: border-box;
+    transition: .5s;
+}
+
+
+#contactForm:hover{
+    box-shadow: 0 0 0 15px rgba(0, 0, 0, 0.459);
+}
