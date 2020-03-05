@@ -1,0 +1,36 @@
+.hero {
+
+	&.has-bg-color-cut {
+		position: relative;
+		background-color: transparent;
+		z-index: auto;
+
+		&::before {
+			content: '';
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 380px;
+			background-color: get-color(dark, 1);
+			z-index: -3;
+		}
+	}
+
+	&[class*=illustration-]::after {
+		height: 510px;
+	}
+}
+
+@include media( '>medium' ) {
+
+	.hero {
+
+		&.has-bg-color-cut {
+	
+			&::before {
+				height: 510px;
+			}
+		}
+	}
+}

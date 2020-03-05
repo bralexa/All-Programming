@@ -1,0 +1,61 @@
+[class*=illustration-] {
+	position: relative;
+
+	&::after {
+		pointer-events: none;
+	}
+}
+
+[class*=illustration-element-]::after {
+	z-index: -1;
+}
+
+[class*=illustration-section-]::after {
+	z-index: -2;
+}
+
+// Hero illustration
+.illustration-section-01::after {
+	@include illustration('illustration-section-01.svg', 100%, 415px, top);
+}
+
+// Signin illustration
+.illustration-section-02::after {
+	@include illustration('illustration-section-02.svg', 100%, 570px, top);
+}
+
+// Behind hero figure
+.illustration-element-01::after {
+	@include illustration('illustration-element-01.svg', 200%, 200%);
+}
+
+// Behind features tiles figure
+.illustration-element-02::after {
+	@include illustration('illustration-element-02.svg', 200%, 200%);
+}
+
+// Behind features split image
+.illustration-element-03::after {
+	@include illustration('illustration-element-03.svg', 200%, 200%);
+}
+
+.illustration-element-04::after {
+	@include illustration('illustration-element-04.svg', 200%, 200%);
+}
+
+.illustration-element-05::after {
+	@include illustration('illustration-element-05.svg', 200%, 200%);
+}
+
+// Behind team
+.illustration-element-06::after {
+	@include illustration('illustration-element-06.svg', 300%, 300%);
+}
+
+.illustration-element-07::after {
+	@include illustration('illustration-element-07.svg', 300%, 300%);
+}
+
+.illustration-element-08::after {
+	@include illustration('illustration-element-08.svg', 400%, 400%);
+}

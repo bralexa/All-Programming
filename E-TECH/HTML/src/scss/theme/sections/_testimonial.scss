@@ -1,0 +1,29 @@
+.testimonial {
+
+	.tiles-item-inner {
+		position: relative;
+		background: get-color(light, 1);
+	}
+
+	&.invert-color,
+	.invert-color {
+
+		.tiles-item-inner {
+			background: get-color(dark, 2);
+		}
+	}
+}
+
+.testimonial-item-image {
+	margin-right: 12px;
+
+	img {
+		border-radius: 50%;
+	}
+}
+
+.testimonial-item-footer {
+	display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}

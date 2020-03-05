@@ -1,0 +1,54 @@
+.pricing {
+
+	.tiles-item-inner {
+		position: relative;
+		background: get-color(light, 1);
+	}
+
+	&.invert-color,
+	.invert-color {
+
+		.tiles-item-inner {
+			background: get-color(dark, 2);
+		}
+	}
+}
+
+ul.pricing-item-features-list {
+	@include divider(after);
+
+	li {
+		margin-bottom: 0;
+		padding: 14px 0;
+		@include divider(before);
+
+		&::after {
+			content: '';
+			display: block;
+			width: 16px;
+			height: 12px;
+			margin-right: 12px;
+			background-image: inline-svg('<svg width="16" height="12" xmlns="http://www.w3.org/2000/svg"><path d="M5.6 6.4L1.6 4 0 5.6 5.6 12 16 1.6 14.4 0z" fill="' + get-color(dark, 3) + '" fill-rule="nonzero"/></svg>');
+			background-repeat: no-repeat;
+			order: -1;
+		}
+
+		&.is-checked {
+
+			&::after {
+				background-image: inline-svg('<svg width="16" height="12" xmlns="http://www.w3.org/2000/svg"><path d="M5.6 6.4L1.6 4 0 5.6 5.6 12 16 1.6 14.4 0z" fill="' + get-color(alert, success) + '" fill-rule="nonzero"/></svg>');
+			}
+		}
+	}
+}
+
+.invert-color {
+
+	ul.pricing-item-features-list {
+		@include divider(after, inverse);
+
+		li {
+			@include divider(before, inverse);
+		}
+	}
+}
